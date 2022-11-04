@@ -95,11 +95,6 @@ _G.packer_plugins = {
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/emmet-vim",
     url = "https://github.com/mattn/emmet-vim"
   },
-  ["lazygit.nvim"] = {
-    loaded = true,
-    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
-    url = "https://github.com/kdheepak/lazygit.nvim"
-  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -149,6 +144,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
   },
   ["vim-airline"] = {
     loaded = true,
