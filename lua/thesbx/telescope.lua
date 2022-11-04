@@ -21,14 +21,6 @@ require("telescope").setup({
 				["<C-q>"] = actions.send_to_qflist,
 			},
 		},
-	},
-    --[[
-	extensions = {
-		fzy_native = {
-			override_generic_sorter = false,
-			override_file_sorter = true,
-		},
-	},
-    ]]
+	}
 })
 
