@@ -1,7 +1,7 @@
 local alpha = require("alpha")
-local startify = require("alpha.themes.startify")
-
-startify.section.header.val = {
+local theme = require("alpha.themes.theta")
+theme.mru_opts.autocd = true
+theme.header.val = {
 "                                                                                        ",
 " ███████╗ █████╗ ███╗   ██╗██████╗ ██╗   ██╗██████╗ ██████╗ ██╗██████╗  ██████╗ ███████╗",
 " ██╔════╝██╔══██╗████╗  ██║██╔══██╗╚██╗ ██╔╝██╔══██╗██╔══██╗██║██╔══██╗██╔════╝ ██╔════╝",
@@ -11,9 +11,10 @@ startify.section.header.val = {
 " ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝    ╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝╚═════╝  ╚═════╝ ╚══════╝",
 }
 
-alpha.setup(startify.opts)
+alpha.setup(theme.config)
 
 -- Disable folding on alpha buffer
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
+
