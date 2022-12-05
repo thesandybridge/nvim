@@ -94,6 +94,11 @@ _G.packer_plugins = {
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/emmet-vim",
     url = "https://github.com/mattn/emmet-vim"
   },
+  ["git-worktree.nvim"] = {
+    loaded = true,
+    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/git-worktree.nvim",
+    url = "https://github.com/ThePrimeagen/git-worktree.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/nvim-cmp",

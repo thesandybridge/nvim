@@ -29,4 +29,5 @@ return require('packer').startup(function(use)
   use 'hrsh7th/vim-vsnip'
   use 'hrsh7th/vim-vsnip-integ'
   use "akinsho/toggleterm.nvim"
+  use("ThePrimeagen/git-worktree.nvim")
 end)
