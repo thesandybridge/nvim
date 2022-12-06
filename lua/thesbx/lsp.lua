@@ -1,3 +1,6 @@
+Remap = require("thesbx.keymap")
+local nnoremap = Remap.nnoremap
+local inoremap = Remap.inoremap
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -15,21 +18,14 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  nnoremap("gd", function() vim.lsp.buf.definition() end, bufopts)
+  nnoremap("K", function() vim.lsp.buf.hover() end, bufopts)
+  nnoremap("<leader>vws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
+  nnoremap("<leader>vd", function() vim.diagnostic.open_float() end, bufopts)
+  nnoremap("[d", function() vim.diagnostic.goto_next() end, bufopts)
+  nnoremap("]d", function() vim.diagnostic.goto_prev() end, bufopts) 
+  nnoremap("<leader>vca", function() vim.lsp.buf.code_action() end, bufopts)
+
 end
 
 local lsp_flags = {
@@ -45,6 +41,13 @@ require'lspconfig'.intelephense.setup{
     flags = lsp_flags,
 }
 require'lspconfig'.pyright.setup{
-    on_attach = on_attch,
+    on_attach = on_attach,
     flags = lsp_flags,
+}
+require'lspconfig'.rust_analyzer.setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+    settings = {
+        ["rust_analyzer"] = {}
+    }
 }

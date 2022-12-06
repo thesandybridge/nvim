@@ -1,4 +1,9 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+--local function config(_config)
+    return vim.tbl_deep_extend("force", {
+        on_attach = function()
+        local opts = { buffer = true };
+
+    } This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
