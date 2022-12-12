@@ -51,3 +51,6 @@ require'lspconfig'.rust_analyzer.setup{
         ["rust_analyzer"] = {}
     }
 }
+require'lspconfig'.gopls.setup{
+    on_attach = on_attach,
+}
