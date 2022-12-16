@@ -24,11 +24,12 @@ return require('packer').startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons' },
   }
   use 'tpope/vim-fugitive'
-  use 'nvim-treesitter/nvim-treesitter'
+  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+  use 'nvim-treesitter/playground'
   use 'nvim-treesitter/nvim-treesitter-context'
   use 'hrsh7th/vim-vsnip'
   use 'hrsh7th/vim-vsnip-integ'
   use "akinsho/toggleterm.nvim"
-  use("ThePrimeagen/git-worktree.nvim")
+  use "theprimeagen/harpoon"
   use 'wakatime/vim-wakatime'
 end)
