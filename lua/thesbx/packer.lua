@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
   use 'hrsh7th/vim-vsnip-integ'
   use "akinsho/toggleterm.nvim"
   use "theprimeagen/harpoon"
+  use "lukas-reineke/indent-blankline.nvim"
   use 'wakatime/vim-wakatime'
   use {
   'VonHeikemen/lsp-zero.nvim',
