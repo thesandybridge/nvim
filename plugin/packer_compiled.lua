@@ -124,6 +124,11 @@ _G.packer_plugins = {
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
   },
+  ["html5.vim"] = {
+    loaded = true,
+    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/html5.vim",
+    url = "https://github.com/othree/html5.vim"
+  },
   ["indent-blankline.nvim"] = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
@@ -213,6 +218,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/vim-airline-themes",
     url = "https://github.com/vim-airline/vim-airline-themes"
+  },
+  ["vim-doge"] = {
+    loaded = true,
+    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/vim-doge",
+    url = "https://github.com/kkoomen/vim-doge"
   },
   ["vim-fugitive"] = {
     loaded = true,
