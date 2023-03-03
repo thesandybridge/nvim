@@ -9,6 +9,17 @@ lsp.ensure_installed({
   'rust_analyzer',
 })
 
+-- Fix Undefined global 'vim'
+lsp.configure('lua-ls', {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+})
+
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -19,7 +30,12 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 lsp.set_preferences({
-    sign_icons = { }
+    sign_icons = {
+        error = 'E',
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
+    }
 })
 
 lsp.setup_nvim_cmp({
