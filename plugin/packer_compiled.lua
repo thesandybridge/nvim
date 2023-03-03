@@ -157,6 +157,11 @@ _G.packer_plugins = {
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/minimap.vim",
     url = "https://github.com/wfxr/minimap.vim"
   },
+  neogit = {
+    loaded = true,
+    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/neogit",
+    url = "https://github.com/TimUntersberger/neogit"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/nvim-cmp",

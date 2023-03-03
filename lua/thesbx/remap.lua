@@ -1,4 +1,5 @@
 local nnoremap = require("thesbx.keymap").nnoremap
+local neogit = require('neogit')
 local builtin = require("telescope.builtin")
 
 nnoremap("<leader>pv", "<cmd>Ex<CR>")
@@ -8,7 +9,9 @@ nnoremap("<leader>ps", function()
 end)
 nnoremap("<leader>gs", "<cmd>:Git<CR>")
 nnoremap("<leader>gb", "<cmd>:G blame<CR>")
-nnoremap("<leader>ga", "<cmd>Git fetch --all<CR>")
+nnoremap("<leader>ga", "<cmd>:Git fetch --all<CR>")
+nnoremap("<leader>os", "<cmd>:Neogit<CR>")
+nnoremap("<leader>oc", "<cmd>:Neogit commit<CR>")
 nnoremap("<C-d>", "<C-d>zz")
 nnoremap("<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<leader>y", "\"+y")

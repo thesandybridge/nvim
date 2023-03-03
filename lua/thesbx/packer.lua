@@ -14,6 +14,7 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
     use 'norcalli/nvim-colorizer.lua'
