@@ -34,6 +34,7 @@ return require('packer').startup(function(use)
   use "theprimeagen/harpoon"
   use "lukas-reineke/indent-blankline.nvim"
   use 'wakatime/vim-wakatime'
+  use 'wfxr/minimap.vim'
   use {
   'VonHeikemen/lsp-zero.nvim',
   requires = {
