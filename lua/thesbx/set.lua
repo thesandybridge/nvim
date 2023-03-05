@@ -1,4 +1,6 @@
+vim.opt.laststatus = 3 -- global statusline for all buffers
 vim.opt.guicursor = ""
+vim.opt.splitbelow = true
 
 vim.opt.nu = true
 vim.opt.relativenumber = true

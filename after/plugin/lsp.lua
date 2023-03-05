@@ -5,12 +5,11 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   'tsserver',
   'eslint',
-  'lua_ls',
   'rust_analyzer',
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua-ls', {
+lsp.configure('lua-language-server', {
     settings = {
         Lua = {
             diagnostics = {
