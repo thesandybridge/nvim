@@ -9,7 +9,7 @@ lsp.ensure_installed({
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
+lsp.configure('lua', {
     settings = {
         Lua = {
             diagnostics = {
@@ -41,7 +41,7 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -60,6 +60,7 @@ end)
 
 lsp.setup()
 
+-- enables error output to the right of the line with the error
 vim.diagnostic.config({
     virtual_text = true
 })

@@ -28,11 +28,22 @@ return require('packer').startup(function(use)
             }
         end,
         requires = {'nvim-tree/nvim-web-devicons'}
-    } 
+    }
     use {
         'kkoomen/vim-doge',
         run = ':call doge#install()'
     }
+    use({
+        "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {
+                icons = false,
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    })
     use 'tpope/vim-fugitive'
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use 'nvim-treesitter/playground'
