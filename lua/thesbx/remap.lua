@@ -1,4 +1,4 @@
-
+-- Custom keymaps
 -- exit to netrw
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- open teriminal split window
