@@ -1,22 +1,20 @@
-local nnoremap = require("thesbx.keymap").nnoremap
-local neogit = require('neogit')
-local builtin = require("telescope.builtin")
 
-nnoremap("<leader>pv", "<cmd>Ex<CR>")
-nnoremap("<leader>pt", "<cmd>Telescope find_files<CR>")
-nnoremap("<leader>ps", function()
-    builtin.grep_string({ search = vim.fn.input("Grep > ") })
-end)
-nnoremap("<leader>tt", "<cmd>:new +terminal<CR>")
-nnoremap("<leader>gs", "<cmd>:Git<CR>")
-nnoremap("<leader>gb", "<cmd>:G blame<CR>")
-nnoremap("<leader>ga", "<cmd>:Git fetch --all<CR>")
-nnoremap("<leader>os", "<cmd>:Neogit<CR>")
-nnoremap("<leader>oc", "<cmd>:Neogit commit<CR>")
-nnoremap("<C-d>", "<C-d>zz")
-nnoremap("<C-u>", "<C-u>zz")
-
+-- exit to netrw
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- open teriminal split window
+vim.keymap.set("n", "<leader>tt", ":new +terminal<CR>")
+-- jump up/down half page and center cursor
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- prevent Q mistype
 vim.keymap.set("n", "Q", "<nop>")
+-- not sure, found this one on Primes .dotfiles
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+-- enables "+ register for copying to clipboard
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set("n", "<leader><leader>", function()
+    vim.cmd("so")
+end)
