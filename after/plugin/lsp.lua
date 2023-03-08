@@ -9,7 +9,7 @@ lsp.ensure_installed({
 })
 
 -- Fix Undefined global 'vim'
-lsp.configure('lua', {
+lsp.configure('lua-language-server', {
     settings = {
         Lua = {
             diagnostics = {
@@ -57,7 +57,7 @@ lsp.on_attach(function(_, bufnr)
 
 end)
 
-
+lsp.nvim_workspace()
 lsp.setup()
 
 -- enables error output to the right of the line with the error
