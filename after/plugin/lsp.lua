@@ -46,7 +46,9 @@ lsp.on_attach(function(_, bufnr)
 
 end)
 
+-- fixed errors with global vim.
 lsp.nvim_workspace()
+
 lsp.setup()
 
 -- enables error output to the right of the line with the error
