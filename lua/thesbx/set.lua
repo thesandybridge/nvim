@@ -1,4 +1,5 @@
 vim.opt.laststatus = 3 -- global statusline for all buffers
+vim.opt.winbar = "%=%m %f"
 vim.opt.guicursor = ""
 vim.opt.splitbelow = true
 
@@ -32,3 +33,8 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.g.mapleader = " "
+
+vim.g.netrw_browse_split = 0
+vim.g.netrw_banner = 0
+vim.g.netrw_winsize = 25
+vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
