@@ -20,16 +20,6 @@ return require('packer').startup(function(use)
     use 'norcalli/nvim-colorizer.lua'
     use 'mattn/emmet-vim'
     use {
-        'glepnir/dashboard-nvim',
-        event = 'VimEnter',
-        config = function()
-            require('dashboard').setup {
-                -- config
-            }
-        end,
-        requires = {'nvim-tree/nvim-web-devicons'}
-    }
-    use {
         'kkoomen/vim-doge',
         run = ':call doge#install()'
     }
@@ -44,6 +34,17 @@ return require('packer').startup(function(use)
             }
         end
     })
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
     use 'tpope/vim-fugitive'
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use 'nvim-treesitter/playground'
