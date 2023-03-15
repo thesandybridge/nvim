@@ -1,3 +1,8 @@
+-- PERF: fully optimised
+-- HACK: sketch
+-- TODO: something needs to be done
+-- FIX: uh oh
+-- WARNING: you were warned
 require("todo-comments").setup {
     keywords = {
         FIX = {
