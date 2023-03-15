@@ -26,6 +26,13 @@ return require('packer').startup(function(use)
     use({
         "folke/trouble.nvim",
     })
+    use({
+        "folke/noice.nvim",
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify"
+        }
+    })
     use {
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
