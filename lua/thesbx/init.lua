@@ -2,6 +2,7 @@ require("thesbx.set")
 require("thesbx.remap")
 require("thesbx.toggleterm")
 require("thesbx.minimap")
+require("thesbx.find_replace")
 
 local augroup = vim.api.nvim_create_augroup
 local SandyBridgeGroup = augroup('SandyBridge', {})
@@ -25,5 +26,4 @@ autocmd({"BufWritePre"}, {
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
-
 
