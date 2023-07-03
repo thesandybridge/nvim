@@ -6,6 +6,7 @@ lsp.ensure_installed({
   'tsserver',
   'eslint',
   'rust_analyzer',
+  'intelephense',
 })
 
 local cmp = require('cmp')
@@ -46,7 +47,18 @@ lsp.on_attach(function(_, bufnr)
 
 end)
 
+local get_intelephense_license = function ()
+    local f = assert(io.open(os.getenv("HOME") .. "/intelephense/license.txt", "rb"))
+    local content = f:read("*a")
+    f:close()
+    return string.gsub(content, "%s+", "")
+end
+
+
 lsp.configure("intelephense", {
+    init_options = {
+        licenseKey = get_intelephense_license()
+    },
     settings = {
         intelephense = {
             format = {
