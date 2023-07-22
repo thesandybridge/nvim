@@ -27,3 +27,8 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
+vim.api.nvim_exec([[
+  autocmd BufRead,BufNewFile *.jsx set filetype=jsx
+  autocmd BufRead,BufNewFile *.tsx set filetype=tsx
+  autocmd BufRead,BufNewFile *.php set filetype=phtml
+]], false)
