@@ -12,6 +12,7 @@ return require('packer').startup(function(use)
     use 'petertriho/nvim-scrollbar'
     use '2072/PHP-Indenting-for-VIm'
     use 'github/copilot.vim'
+    use 'sheerun/vim-polyglot'
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { {'nvim-lua/plenary.nvim'} }
