@@ -2,6 +2,7 @@ vim.opt.laststatus = 3 -- global statusline for all buffers
 vim.opt.winbar = "%=%m %f"
 vim.opt.guicursor = ""
 vim.opt.splitbelow = true
+vim.o.termguicolors = true
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
