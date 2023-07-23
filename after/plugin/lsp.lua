@@ -156,6 +156,7 @@ lsp.configure("intelephense", {
             },
         },
     },
+    filetypes = {"php", "phtml"},
 })
 
 -- fixed errors with global vim.
