@@ -32,3 +32,12 @@ vim.api.nvim_exec([[
   autocmd BufRead,BufNewFile *.tsx set filetype=tsx
   autocmd BufRead,BufNewFile *.php set filetype=phtml
 ]], false)
+
+vim.api.nvim_exec([[
+  augroup NetrwCursorLine
+    autocmd!
+    autocmd FileType netrw,netrwTree setlocal cursorline
+    autocmd FileType netrw,netrwTree autocmd CursorMoved <buffer> setlocal cursorline
+  augroup END
+]], false)
+
