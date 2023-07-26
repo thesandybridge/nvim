@@ -14,7 +14,9 @@ return require('packer').startup(function(use)
     use 'github/copilot.vim'
     use 'sheerun/vim-polyglot'
     use 'lewis6991/gitsigns.nvim'
-    use 'mfussenegger/nvim-dap'
+    use { 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'} }
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'leoluz/nvim-dap-go'
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { {'nvim-lua/plenary.nvim'} }
