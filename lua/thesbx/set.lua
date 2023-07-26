@@ -44,4 +44,4 @@ vim.g.netrw_cursor = 1
 vim.g.netrw_preview = 1
 
 vim.g.polyglot_disabled = {'all'}
-vim.g.polyglot_enabled = {'lua'}
+vim.g.polyglot_enabled = {'php'}

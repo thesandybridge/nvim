@@ -79,11 +79,6 @@ _G.packer_plugins = {
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
-  ["PHP-Indenting-for-VIm"] = {
-    loaded = true,
-    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/PHP-Indenting-for-VIm",
-    url = "https://github.com/2072/PHP-Indenting-for-VIm"
-  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/cmp-buffer",

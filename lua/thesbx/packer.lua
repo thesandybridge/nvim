@@ -10,7 +10,6 @@ return require('packer').startup(function(use)
     use 'navarasu/onedark.nvim'
     use 'folke/tokyonight.nvim'
     use 'petertriho/nvim-scrollbar'
-    use '2072/PHP-Indenting-for-VIm'
     use 'github/copilot.vim'
     use 'sheerun/vim-polyglot'
     use 'lewis6991/gitsigns.nvim'
