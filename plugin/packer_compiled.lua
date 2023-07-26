@@ -279,11 +279,6 @@ _G.packer_plugins = {
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
-  ["vim-polyglot"] = {
-    loaded = true,
-    path = "/home/sbx/.local/share/nvim/site/pack/packer/start/vim-polyglot",
-    url = "https://github.com/sheerun/vim-polyglot"
-  },
   ["vim-vsnip"] = {
     loaded = true,
     path = "/home/sbx/.local/share/nvim/site/pack/packer/start/vim-vsnip",
