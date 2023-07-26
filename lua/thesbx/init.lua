@@ -40,3 +40,5 @@ vim.api.nvim_exec([[
   augroup END
 ]], false)
 
+vim.api.nvim_command('autocmd BufNewFile,BufRead *.php setlocal syntax=php')
+
