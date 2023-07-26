@@ -42,3 +42,4 @@ vim.api.nvim_exec([[
 
 vim.api.nvim_command('autocmd BufNewFile,BufRead *.php setlocal syntax=php')
 
+vim.cmd('filetype indent on')
