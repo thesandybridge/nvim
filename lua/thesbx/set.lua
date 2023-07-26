@@ -40,9 +40,7 @@ vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.g.netrw_liststyle = 0
 vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
-vim.g.netrw_keepdir = 1
 vim.g.netrw_cursor = 1
-vim.g.netrw_chgwin = 1
 vim.g.netrw_preview = 1
 
 
