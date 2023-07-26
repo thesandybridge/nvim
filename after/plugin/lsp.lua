@@ -54,8 +54,15 @@ local get_intelephense_license = function ()
     return string.gsub(content, "%s+", "")
 end
 
+local function find_wordpress_root()
+    local filepath = vim.api.nvim_buf_get_name(0)
+    local project_root = filepath:match("(.*/public)/.*")
+    return project_root
+end
+
 
 lsp.configure("intelephense", {
+    root_dir = find_wordpress_root,
     init_options = {
         licenseKey = get_intelephense_license()
     },
@@ -68,7 +75,6 @@ lsp.configure("intelephense", {
                 includePath = {
                     "~/.config/composer/vendor/php-stubs/",
                     "~/.config/composer/vendor/timber/",
-                    "./wp-content/plugins",
                 },
             },
             stubs = {
