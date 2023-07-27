@@ -73,8 +73,7 @@ lsp.configure("intelephense", {
             },
             environment = {
                 includePath = {
-                    "~/.config/composer/vendor/php-stubs/",
-                    "~/.config/composer/vendor/timber/",
+                    "/home/sbx/.config/composer/vendor/"
                 },
             },
             stubs = {
