@@ -72,7 +72,7 @@ lsp.configure("intelephense", {
                 braces = "k&r",
             },
             environment = {
-                includePath = {
+                includePaths = {
                     "/home/sbx/.config/composer/vendor/"
                 },
             },
