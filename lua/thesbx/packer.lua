@@ -31,6 +31,17 @@ return require('packer').startup(function(use)
     use({
         "folke/trouble.nvim",
     })
+    use {
+        "luckasRanarison/nvim-devdocs",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("nvim-devdocs").setup()
+        end
+    }
     --use({
     --    "folke/noice.nvim",
     --    requires = {
