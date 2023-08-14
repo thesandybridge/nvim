@@ -19,7 +19,14 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use {
+        'NeogitOrg/neogit',
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim",
+            "sindrets/diffview.nvim",
+        },
+    }
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
     use 'norcalli/nvim-colorizer.lua'
@@ -37,18 +44,8 @@ return require('packer').startup(function(use)
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
             "nvim-treesitter/nvim-treesitter",
-        },
-        config = function()
-            require("nvim-devdocs").setup()
-        end
+        }
     }
-    --use({
-    --    "folke/noice.nvim",
-    --    requires = {
-    --        "MunifTanjim/nui.nvim",
-    --        "rcarriga/nvim-notify"
-    --    }
-    --})
     use {
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
