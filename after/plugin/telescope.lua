@@ -7,3 +7,6 @@ vim.keymap.set('n', '<C-s>', function()
 	builtin.grep_string({ search = vim.fn.input("rg > ") })
 end)
 vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+
+
+require('telescope').load_extension('copilot')
