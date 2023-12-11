@@ -7,6 +7,10 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'othree/html5.vim'
+    use 'pangloss/vim-javascript'
+    use 'leafgarland/typescript-vim'
+    use 'maxmellon/vim-jsx-pretty'
+    use 'othree/javascript-libraries-syntax.vim'
     use 'navarasu/onedark.nvim'
     use 'folke/tokyonight.nvim'
     use 'petertriho/nvim-scrollbar'
