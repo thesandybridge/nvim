@@ -12,7 +12,9 @@ return require('packer').startup(function(use)
     use 'maxmellon/vim-jsx-pretty'
     use 'othree/javascript-libraries-syntax.vim'
     use 'navarasu/onedark.nvim'
-    use 'folke/tokyonight.nvim'
+    -- use 'folke/tokyonight.nvim'
+    use { "catppuccin/nvim", as = "catppuccin" }
+    use { "catppuccin/vim", as = "catppuccin_vim" }
     use 'petertriho/nvim-scrollbar'
     use 'github/copilot.vim'
     use 'lewis6991/gitsigns.nvim'
@@ -32,8 +34,10 @@ return require('packer').startup(function(use)
             "sindrets/diffview.nvim",
         },
     }
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
+    -- use 'vim-airline/vim-airline'
+    -- use 'vim-airline/vim-airline-themes'
+    use 'itchyny/lightline.vim'
+
     use 'norcalli/nvim-colorizer.lua'
     use 'mattn/emmet-vim'
     use {

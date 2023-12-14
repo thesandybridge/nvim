@@ -26,7 +26,6 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 vim.opt.colorcolumn = "80"
 vim.opt.cmdheight = 1
-vim.opt.termguicolors = true
 
 vim.opt.smartindent = true
 
@@ -44,3 +43,16 @@ vim.g.netrw_liststyle = 0
 vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
 vim.g.netrw_cursor = 1
 vim.g.netrw_preview = 1
+
+vim.g.lightline = {
+  colorscheme = "catppuccin_mocha",
+  active = {
+    left = {
+      { "mode", "paste" },
+      { "gitbranch", "readonly", "filename", "modified" },
+    },
+  },
+  component_function = {
+    gitbranch = "FugitiveHead",
+  },
+}
