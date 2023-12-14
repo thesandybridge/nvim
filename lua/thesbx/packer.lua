@@ -36,7 +36,11 @@ return require('packer').startup(function(use)
     }
     -- use 'vim-airline/vim-airline'
     -- use 'vim-airline/vim-airline-themes'
-    use 'itchyny/lightline.vim'
+    -- use 'itchyny/lightline.vim'
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
 
     use 'norcalli/nvim-colorizer.lua'
     use 'mattn/emmet-vim'
