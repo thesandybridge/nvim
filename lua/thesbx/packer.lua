@@ -93,7 +93,8 @@ return require('packer').startup(function(use)
             -- Snippets
             {'L3MON4D3/LuaSnip'},
             {'rafamadriz/friendly-snippets'},
-        }
+        },
+        branch = 'v3.x'
     }
     use({
         "iamcco/markdown-preview.nvim",
