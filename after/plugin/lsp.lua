@@ -62,8 +62,7 @@ local function find_wordpress_root()
     return project_root
 end
 
-
-lsp.configure("intelephense", {
+require('lspconfig').intelephense.setup({
     root_dir = find_wordpress_root,
     init_options = {
         licenseKey = get_intelephense_license()
@@ -166,8 +165,7 @@ lsp.configure("intelephense", {
     filetypes = {"php", "phtml"},
 })
 
-
-lsp.setup()
+lsp.setup_servers({'lua_ls', 'rust_analyzer', 'tsserver', 'eslint'})
 
 -- enables error output to the right of the line with the error
 vim.diagnostic.config({
