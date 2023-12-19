@@ -27,10 +27,10 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
-vim.api.nvim_exec([[
-  autocmd BufRead,BufNewFile *.jsx set filetype=jsx
-  autocmd BufRead,BufNewFile *.tsx set filetype=tsx
-]], false)
+--vim.api.nvim_exec([[
+--  autocmd BufRead,BufNewFile *.jsx set filetype=jsx
+--  autocmd BufRead,BufNewFile *.tsx set filetype=tsx
+--]], false)
 
 vim.api.nvim_exec([[
   augroup NetrwCursorLine
@@ -40,6 +40,6 @@ vim.api.nvim_exec([[
   augroup END
 ]], false)
 
-vim.api.nvim_command('autocmd BufNewFile,BufRead *.php setlocal syntax=php')
+--vim.api.nvim_command('autocmd BufNewFile,BufRead *.php setlocal syntax=php')
 
 vim.cmd('filetype indent on')
