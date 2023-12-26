@@ -59,9 +59,58 @@ require('mason-lspconfig').setup({
         'eslint',
         'intelephense',
         'lua_ls',
+        'gopls',
     },
     handlers = {
         lsp_zero.default_setup,
+        gopls = function()
+            require('lspconfig').gopls.setup({
+                cmd = {"gopls", "serve"},
+                settings = {
+                    gopls = {
+                        analyses = {
+                            unusedparams = true,
+                        },
+                        staticcheck = true,
+                        gofumpt = true,
+                    },
+                },
+                on_attach = function(client, bufnr)
+                    if client.server_capabilities.documentFormattingProvider then
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = bufnr,
+                            callback = function() vim.lsp.buf.format({ async = false }) end
+                        })
+                    end
+                end
+            })
+        end,
+        rust_analyzer = function()
+            require('lspconfig').rust_analyzer.setup({
+                settings = {
+                    ["rust-analyzer"] = {
+                        assist = {
+                            importGranularity = "module",
+                            importPrefix = "by_self",
+                        },
+                        cargo = {
+                            loadOutDirsFromCheck = true
+                        },
+                        procMacro = {
+                            enable = true
+                        },
+                    }
+                },
+                on_attach = function(client, bufnr)
+                    if client.server_capabilities.documentFormattingProvider then
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                            buffer = bufnr,
+                            callback = function() vim.lsp.buf.format({ async = false }) end
+                        })
+                    end
+                end
+            })
+        end,
         intelephense = function()
             require('lspconfig').intelephense.setup({
                 root_dir = find_wordpress_root,
