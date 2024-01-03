@@ -108,6 +108,7 @@ return require('packer').startup(function(use)
         requires = {
             -- Required.
             "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
 
             -- see below for full list of optional dependencies 👇
         }

@@ -23,4 +23,12 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
+vim.keymap.set("n", "<leader>ch", function()
+    return require("obsidian").util.toggle_checkbox()
+end)
+
+vim.keymap.set("n", "<leader>gf", function()
+    return require("obsidian").util.gf_passthrough()
+end)
+
 
