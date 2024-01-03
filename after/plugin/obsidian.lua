@@ -2,7 +2,7 @@ require("obsidian").setup({
     workspaces = {
         {
             name = "personal",
-            path = "~/Dev/Seabridge Vault/Seabridge",
+            path = "~/Dev/Seabridge",
         },
         {
             name = "work",
