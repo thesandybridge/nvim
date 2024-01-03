@@ -53,6 +53,7 @@ vim.g.lightline = {
     },
   },
   component_function = {
-    gitbranch = "FugitiveHead",
+    gitbranch = "FugitiveYYHead",
   },
 }
+vim.opt.conceallevel = 1
