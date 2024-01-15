@@ -2,6 +2,7 @@ local lsp_zero = require("lsp-zero")
 
 local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
+local luasnip = require('luasnip')
 
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
