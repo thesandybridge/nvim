@@ -122,7 +122,7 @@ class NeovimWSPlugin(object):
 
         if message_type == "CursorPosition":
             data = {
-                "type": "CursorPosition",  # Set the type field as expected by the Rust backend
+                "type": "CursorPosition",
                 "client_id": self.client_id,
                 "position": {
                     "line": cursor_pos[0],
@@ -131,7 +131,7 @@ class NeovimWSPlugin(object):
             }
         elif message_type == "FileEdit":
             data = {
-                "type": "FileEdit",  # Set the type field here as well
+                "type": "FileEdit",
                 "file_name": self.nvim.current.buffer.name,
                 "client_id": self.client_id,
                 "position": {
@@ -196,7 +196,6 @@ class NeovimWSPlugin(object):
 
         if self.ws:
             try:
-                # Properly close the WebSocket connection with a close frame
                 self.ws.close()
                 self.nvim.out_write("WebSocket connection has been closed gracefully.\n")
             except Exception as e:
@@ -205,9 +204,9 @@ class NeovimWSPlugin(object):
             self.nvim.out_write("No active WebSocket connection to close.\n")
 
         self.should_run.clear()
-        self.queue_event.set()  # Signal any processing threads to exit
+        self.queue_event.set()
         if self.ws_thread and self.ws_thread.is_alive():
-            self.ws_thread.join()  # Wait for the WebSocket thread to finish
+            self.ws_thread.join()
 
         self.ws_thread = None
         self.client_id = None
