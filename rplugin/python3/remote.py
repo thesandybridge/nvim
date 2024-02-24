@@ -97,13 +97,11 @@ class NeovimWSPlugin(object):
 
         ws_url = args[0]
         self.should_run.set()
-        # Starting WebSocket connection thread
         try:
             self.ws_thread = threading.Thread(target=self.ws_thread_func, args=(ws_url,))
             self.ws_thread.daemon = True
             self.ws_thread.start()
 
-            # Ensure process_queue thread starts only once and is tied to the lifecycle of the WebSocket connection
             if not hasattr(self, 'process_thread') or not self.process_thread.is_alive():
                 self.process_thread = threading.Thread(target=self.process_queue, daemon=True)
                 self.process_thread.start()
