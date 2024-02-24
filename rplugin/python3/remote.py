@@ -17,10 +17,12 @@ class NeovimWSPlugin(object):
         self.queue_event = threading.Event()
         self.should_run = threading.Event()
         self.should_run.set()
+        self.is_connected = False
         self.client_state = {}
 
     def ws_thread_func(self, ws_url):
         def on_open(ws):
+            self.is_connected = True
             self.nvim.async_call(lambda: self.nvim.out_write("WebSocket connection opened\n"))
 
         def on_message(ws, message):
@@ -38,6 +40,7 @@ class NeovimWSPlugin(object):
             self.nvim.async_call(lambda: self.nvim.err_write(f"WebSocket error: {error}\n"))
 
         def on_close(ws, close_status_code, close_msg):
+            self.is_connected = False
             self.should_run.clear()
             self.nvim.async_call(lambda: self.nvim.out_write("WebSocket connection closed\n"))
 
@@ -98,16 +101,19 @@ class NeovimWSPlugin(object):
         ws_url = args[0]
         self.should_run.set()
         # Starting WebSocket connection thread
-        self.ws_thread = threading.Thread(target=self.ws_thread_func, args=(ws_url,))
-        self.ws_thread.daemon = True
-        self.ws_thread.start()
+        try:
+            self.ws_thread = threading.Thread(target=self.ws_thread_func, args=(ws_url,))
+            self.ws_thread.daemon = True
+            self.ws_thread.start()
 
-        # Ensure process_queue thread starts only once and is tied to the lifecycle of the WebSocket connection
-        if not hasattr(self, 'process_thread') or not self.process_thread.is_alive():
-            self.process_thread = threading.Thread(target=self.process_queue, daemon=True)
-            self.process_thread.start()
+            # Ensure process_queue thread starts only once and is tied to the lifecycle of the WebSocket connection
+            if not hasattr(self, 'process_thread') or not self.process_thread.is_alive():
+                self.process_thread = threading.Thread(target=self.process_queue, daemon=True)
+                self.process_thread.start()
 
-        self.nvim.out_write(f"Connecting to {ws_url}...\n")
+            self.nvim.out_write(f"Connecting to {ws_url}...\n")
+        except Exception as e:
+            self.nvim.err_write(f"Error starting WebSocket connection thread: {e}\n")
 
     def prepare_data(self, text, cursor_pos, message_type):
         if not self.client_id:
@@ -143,6 +149,9 @@ class NeovimWSPlugin(object):
 
     @autocmd('CursorMoved,CursorMovedI', pattern='*', sync=False)
     def on_cursor_moved(self):
+        if not self.is_connected:
+            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
+            return
         if self.client_id:
             cursor_pos = self.nvim.current.window.cursor
             data = self.prepare_data("", cursor_pos, "CursorPosition")
@@ -153,6 +162,9 @@ class NeovimWSPlugin(object):
 
     @autocmd('BufWritePost', pattern='*', sync=False)
     def on_buf_write_post(self):
+        if not self.is_connected:
+            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
+            return
         if self.client_id:
             cursor_pos = self.nvim.current.window.cursor
             buffer = self.nvim.current.buffer
@@ -165,6 +177,9 @@ class NeovimWSPlugin(object):
 
     @command('WSSend', nargs='*', sync=True)
     def send_message(self, args):
+        if not self.is_connected:
+            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
+            return
         if self.client_id:
             cursor_pos = self.nvim.current.window.cursor
             data = self.prepare_data(" ".join(args), cursor_pos, "CustomMessage")
@@ -175,6 +190,10 @@ class NeovimWSPlugin(object):
 
     @command('WSClose', nargs='0', sync=True)
     def close_connection(self, args):
+        if not self.is_connected:
+            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
+            return
+
         if self.ws:
             try:
                 # Properly close the WebSocket connection with a close frame
@@ -195,6 +214,9 @@ class NeovimWSPlugin(object):
 
     @autocmd('VimLeave', pattern='*', sync=True)
     def on_vim_leave(self):
+        if not self.is_connected:
+            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
+            return
         self.close_connection(None)
 
 
