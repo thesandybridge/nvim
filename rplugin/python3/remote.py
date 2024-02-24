@@ -89,9 +89,6 @@ class NeovimWSPlugin(object):
                     error_message = f"Failed to send data to the server: {e}"
                     self.nvim.async_call(lambda: self.nvim.err_write(error_message + "\n"))
 
-
-
-
     @command('WSConnect', nargs='1', sync=True)
     def connect_to_websocket(self, args):
         if self.ws_thread is not None and self.ws_thread.is_alive():
