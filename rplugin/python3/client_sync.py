@@ -1,9 +1,18 @@
 import json
 import time
 import threading
+from pydantic import BaseModel, ValidationError
+from typing import Any, Dict
 from pynvim import attach, plugin, command, autocmd
 import websocket
 from queue import Queue, Empty
+
+class PluginConfig(BaseModel):
+    """
+    ## Configuration options for use with Lua in Neovim.
+    send_rate: int - The rate at which to send updates to the server in seconds.
+    """
+    send_rate: int = 10
 
 @plugin
 class NeovimWSPlugin(object):
@@ -11,7 +20,7 @@ class NeovimWSPlugin(object):
         self.nvim = nvim
         self.client_id = None
         self.object_type = None
-        self.ws = None
+        self.ws = websocket.WebSocketApp
         self.ws_thread = None
         self.ws_queue = Queue()
         self.queue_event = threading.Event()
@@ -19,6 +28,7 @@ class NeovimWSPlugin(object):
         self.should_run.set()
         self.is_connected = False
         self.client_state = {}
+        self.config = PluginConfig()
 
     def ws_thread_func(self, ws_url):
         def on_open(ws):
@@ -53,15 +63,27 @@ class NeovimWSPlugin(object):
         threading.Thread(target=lambda: self.ws.run_forever(), daemon=True).start()
         self.nvim.async_call(lambda: self.nvim.out_write(f"Attempting to connect to WebSocket at {ws_url}\n"))
 
+    def configure(self, config: Dict[str, Any]):
+        try:
+            self.config = PluginConfig(**config)
+            self.nvim.out_write(f"Configuration updated: {self.config}\n")
+        except ValidationError as e:
+            self.nvim.err_write(f"Configuration validation error: {e}\n")
+
+    @command('WSConfigure', nargs='1', sync=True)
+    def command_configure(self, args):
+        config_str = args[0]
+        config_updates = json.loads(config_str)
+        self.configure(config_updates)
+
     def process_queue(self):
-        """Process the queue in 10-second intervals."""
         while self.should_run.is_set():
             start_time = time.time()
             messages = []
 
-            while time.time() - start_time < 10:
+            while time.time() - start_time < self.config.send_rate and self.should_run.is_set():
                 try:
-                    message = self.ws_queue.get(timeout=10 - (time.time() - start_time))
+                    message = self.ws_queue.get(timeout=self.config.send_rate - (time.time() - start_time))
                     messages.append(message)
                     self.ws_queue.task_done()
                 except Empty:
