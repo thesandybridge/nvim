@@ -145,7 +145,6 @@ class NeovimWSPlugin(object):
     @autocmd('CursorMoved,CursorMovedI', pattern='*', sync=False)
     def on_cursor_moved(self):
         if not self.is_connected:
-            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
             return
         if self.client_id:
             cursor_pos = self.nvim.current.window.cursor
@@ -158,7 +157,6 @@ class NeovimWSPlugin(object):
     @autocmd('BufWritePost', pattern='*', sync=False)
     def on_buf_write_post(self):
         if not self.is_connected:
-            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
             return
         if self.client_id:
             cursor_pos = self.nvim.current.window.cursor
@@ -186,7 +184,6 @@ class NeovimWSPlugin(object):
     @command('WSClose', nargs='0', sync=True)
     def close_connection(self, args):
         if not self.is_connected:
-            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
             return
 
         if self.ws:
@@ -209,7 +206,6 @@ class NeovimWSPlugin(object):
     @autocmd('VimLeave', pattern='*', sync=True)
     def on_vim_leave(self):
         if not self.is_connected:
-            self.nvim.out_write("WebSocket connection is not established. Cannot close.\n")
             return
         self.close_connection(None)
 
