@@ -96,4 +96,5 @@ return require('packer').startup(function(use)
         },
         branch = 'v3.x'
     }
+    use "michaelrommel/nvim-silicon"
 end)

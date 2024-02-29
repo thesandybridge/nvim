@@ -31,4 +31,4 @@ vim.keymap.set("n", "<leader>gf", function()
     return require("obsidian").util.gf_passthrough()
 end)
 
-
+vim.keymap.set("v", "<leader>sc", ":Silicon<CR>", { silent = true })
