@@ -34,9 +34,6 @@ return require('packer').startup(function(use)
             "sindrets/diffview.nvim",
         },
     }
-    -- use 'vim-airline/vim-airline'
-    -- use 'vim-airline/vim-airline-themes'
-    -- use 'itchyny/lightline.vim'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
