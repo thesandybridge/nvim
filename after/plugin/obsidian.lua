@@ -27,11 +27,11 @@ require("obsidian").setup({
             opts = { buffer = true },
         },
     },
+    follow_url_func = function(url)
+        vim.fn.jobstart({"xdg-open", url})  -- linux
+    end,
     attachments = {
-        -- The default folder to place images in via `:ObsidianPasteImg`.
-        -- If this is a relative path it will be interpreted as relative to the vault root.
-        -- You can always override this per image by passing a full path to the command instead of just a filename.
-        img_folder = "assets/images",  -- This is the default
+        img_folder = "assets/images",
     },
     templates = {
         subdir = "templates",
