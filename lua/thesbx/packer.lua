@@ -97,4 +97,13 @@ return require('packer').startup(function(use)
         branch = 'v3.x'
     }
     use "michaelrommel/nvim-silicon"
+    use "mvllow/modes.nvim"
+    use({
+        "epwalsh/obsidian.nvim",
+        tag = "*",
+        requires = {
+            "nvim-lua/plenary.nvim",
+
+        }
+    })
 end)
