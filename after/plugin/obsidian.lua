@@ -33,5 +33,10 @@ require("obsidian").setup({
         -- You can always override this per image by passing a full path to the command instead of just a filename.
         img_folder = "assets/images",  -- This is the default
     },
+    templates = {
+        subdir = "templates",
+        date_format = "%m-%d-%Y",
+        time_format = "%H:%M",
+    },
 
 })
