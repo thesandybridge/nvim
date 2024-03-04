@@ -249,18 +249,7 @@ require('mason-lspconfig').setup({
                     },
                 },
                 filetypes = {"php", "phtml"},
-                on_attach = function(client, bufnr)
-                    if client.server_capabilities.documentFormattingProvider then
-                        vim.api.nvim_create_autocmd("BufWritePre", {
-                            buffer = bufnr,
-                            callback = function()
-                                local phpcbf_cmd = "phpcbf --standard=WordPress " .. vim.fn.expand('%:p')
-                                vim.fn.system(phpcbf_cmd)
-                                vim.cmd('edit!')
-                            end
-                        })
-                    end
-                end
+                on_attach = on_attach
             })
         end,
   }
