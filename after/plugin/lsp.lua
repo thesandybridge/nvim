@@ -81,6 +81,14 @@ local function find_wordpress_root()
 end
 
 --lsp_zero.setup()
+local on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function() vim.lsp.buf.format({ async = false }) end
+        })
+    end
+end
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -107,14 +115,7 @@ require('mason-lspconfig').setup({
                         gofumpt = true,
                     },
                 },
-                on_attach = function(client, bufnr)
-                    if client.server_capabilities.documentFormattingProvider then
-                        vim.api.nvim_create_autocmd("BufWritePre", {
-                            buffer = bufnr,
-                            callback = function() vim.lsp.buf.format({ async = false }) end
-                        })
-                    end
-                end
+                on_attach = on_attach
             })
         end,
         rust_analyzer = function()
@@ -153,6 +154,9 @@ require('mason-lspconfig').setup({
                     intelephense = {
                         format = {
                             braces = "k&r",
+                            indent = {
+                                alignment = 4,
+                            },
                         },
                         environment = {
                             includePaths = {
@@ -245,6 +249,7 @@ require('mason-lspconfig').setup({
                     },
                 },
                 filetypes = {"php", "phtml"},
+                on_attach = on_attach
             })
         end,
   }
