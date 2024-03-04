@@ -8,7 +8,7 @@ require("obsidian").setup({
     daily_notes = {
         folder = "daily_notes",
         date_format = "%m-%d-%Y",
-        template = "templates/daily.md",
+        template = "daily.md",
     },
     disable_frontmatter = false,
     mappings = {
