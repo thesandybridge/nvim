@@ -80,7 +80,9 @@ local function find_wordpress_root()
     return project_root
 end
 
---lsp_zero.setup()
+-- Autoformat on save
+-- @param client lsp client
+-- @param bufnr buffer number
 local on_attach = function(client, bufnr)
     if client.server_capabilities.documentFormattingProvider then
         vim.api.nvim_create_autocmd("BufWritePre", {
