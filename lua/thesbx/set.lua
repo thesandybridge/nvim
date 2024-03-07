@@ -58,10 +58,4 @@ vim.g.lightline = {
 }
 vim.opt.conceallevel = 1
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt_local.textwidth = 80
-    end,
-})
 
