@@ -40,6 +40,15 @@ vim.api.nvim_exec([[
   augroup END
 ]], false)
 
+
+autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.opt_local.textwidth = 80
+        vim.opt_local.wrap = true
+        vim.opt_local.linebreak = true
+    end,
+})
 --vim.api.nvim_command('autocmd BufNewFile,BufRead *.php setlocal syntax=php')
 
 vim.cmd('filetype indent on')
