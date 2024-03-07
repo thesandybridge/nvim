@@ -8,6 +8,8 @@ vim.keymap.set("n", "<leader>ts", ":call termcmd#vert()<CR>")
 -- jump up/down half page and center cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 -- prevent Q mistype
 vim.keymap.set("n", "Q", "<nop>")
 -- not sure, found this one on Primes .dotfiles
