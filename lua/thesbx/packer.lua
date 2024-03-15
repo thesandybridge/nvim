@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
     }
     use {'nvim-telescope/telescope-ui-select.nvim' }
     use "sindrets/diffview.nvim"
+    use "FabijanZulj/blame.nvim"
     use {
         'NeogitOrg/neogit',
         dependencies = {
@@ -61,7 +62,7 @@ return require('packer').startup(function(use)
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
     }
-    use 'tpope/vim-fugitive'
+    --use 'tpope/vim-fugitive'
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use 'nvim-treesitter/playground'
     use 'nvim-treesitter/nvim-treesitter-context'
