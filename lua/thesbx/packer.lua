@@ -26,6 +26,7 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {'nvim-telescope/telescope-ui-select.nvim' }
+    use "sindrets/diffview.nvim"
     use {
         'NeogitOrg/neogit',
         dependencies = {
