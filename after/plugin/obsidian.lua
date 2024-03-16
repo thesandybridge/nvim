@@ -21,11 +21,11 @@ require("obsidian").setup({
         },
         -- Toggle check-boxes.
         ["<C-l>"] = {
-            action = function()
+           action = function()
                 return require("obsidian").util.toggle_checkbox()
             end,
             opts = { buffer = true },
-        },
+        }
     },
     follow_url_func = function(url)
         vim.fn.jobstart({"xdg-open", url})  -- linux
@@ -40,3 +40,8 @@ require("obsidian").setup({
     },
 
 })
+
+vim.keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<CR>", { desc = "Search Obsidian" })
+vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<CR>", { desc = "Open today's note" })
+vim.keymap.set("n", "<leader>on", "<cmd>ObsidianNew<CR>", { desc = "Create new note" })
+vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "Open backlinks" })
