@@ -1,4 +1,8 @@
-require('neogit').setup {}
+require('neogit').setup {
+    integrations = {
+        diffview = true
+    }
+}
 
 vim.keymap.set("n", "<leader>gs", vim.cmd.Neogit)
 vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>")
