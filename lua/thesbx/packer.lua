@@ -4,7 +4,7 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-    use "lepture/vim-jinja"
+    --use "lepture/vim-jinja"
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use 'othree/html5.vim'
