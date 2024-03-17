@@ -27,9 +27,9 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
---vim.api.nvim_exec([[
---  autocmd BufRead,BufNewFile *.tera set filetype=jinja
---]], false)
+vim.api.nvim_exec([[
+    autocmd BufRead,BufNewFile *.tera set filetype=html
+]], false)
 
 vim.api.nvim_exec([[
   augroup NetrwCursorLine
