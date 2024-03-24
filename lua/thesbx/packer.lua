@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
     use { "ellisonleao/gruvbox.nvim" }
     -- ENDTHEMES --
     --
+    use 'nvim-tree/nvim-web-devicons'
     use 'petertriho/nvim-scrollbar'
     use 'github/copilot.vim'
     use 'lewis6991/gitsigns.nvim'
