@@ -39,6 +39,33 @@
 --    on_highlights = function(highlights, colors) end,
 --})
 
+--require("gruvbox").setup({
+--    terminal_colors = true, -- add neovim terminal colors
+--    undercurl = true,
+--    underline = true,
+--    bold = true,
+--    italic = {
+--        strings = true,
+--        emphasis = true,
+--        comments = true,
+--        operators = false,
+--        folds = true,
+--    },
+--    strikethrough = true,
+--    invert_selection = false,
+--    invert_signs = false,
+--    invert_tabline = false,
+--    invert_intend_guides = false,
+--    inverse = true, -- invert background for search, diffs, statuslines and errors
+--    contrast = "", -- can be "hard", "soft" or empty string
+--    palette_overrides = {},
+--    overrides = {
+--        SignColumn = {bg = "#282828"}
+--    },
+--    dim_inactive = false,
+--    transparent_mode = false,
+--})
+
 require("catppuccin").setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
     background = { -- :h background
@@ -82,12 +109,9 @@ require("catppuccin").setup({
             enabled = true,
             indentscope_color = "",
         },
-        -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
 })
 
 -- setup must be called before loading
-vim.cmd.colorscheme "catppuccin"
-
--- vim.cmd([[colorscheme tokyonight]])
+vim.cmd("colorscheme catppuccin")
 require'colorizer'.setup()

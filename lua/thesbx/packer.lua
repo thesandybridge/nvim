@@ -4,18 +4,15 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-    --use "lepture/vim-jinja"
-    -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use 'othree/html5.vim'
-    use 'pangloss/vim-javascript'
-    use 'leafgarland/typescript-vim'
-    use 'maxmellon/vim-jsx-pretty'
-    use 'othree/javascript-libraries-syntax.vim'
-    use 'navarasu/onedark.nvim'
+
+    -- THEMES --
     -- use 'folke/tokyonight.nvim'
     use { "catppuccin/nvim", as = "catppuccin" }
-    use { "catppuccin/vim", as = "catppuccin_vim" }
+    -- use 'navarasu/onedark.nvim'
+    --use { "ellisonleao/gruvbox.nvim" }
+    -- ENDTHEMES --
+    --
     use 'petertriho/nvim-scrollbar'
     use 'github/copilot.vim'
     use 'lewis6991/gitsigns.nvim'
@@ -27,10 +24,9 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {'nvim-telescope/telescope-ui-select.nvim' }
+    -- GIT --
     use "sindrets/diffview.nvim"
-    --use "thesandybridge/blame.nvim"
     use "FabijanZulj/blame.nvim"
-    --use 'tpope/vim-fugitive'
     use {
         'NeogitOrg/neogit',
         dependencies = {
@@ -39,6 +35,7 @@ return require('packer').startup(function(use)
             "sindrets/diffview.nvim",
         },
     }
+    -- ENDGIT --
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
@@ -97,7 +94,6 @@ return require('packer').startup(function(use)
         },
         branch = 'v3.x'
     }
-    use "michaelrommel/nvim-silicon"
     use "mvllow/modes.nvim"
     use({
         "epwalsh/obsidian.nvim",
