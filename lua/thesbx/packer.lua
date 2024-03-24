@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
     -- use 'folke/tokyonight.nvim'
     use { "catppuccin/nvim", as = "catppuccin" }
     -- use 'navarasu/onedark.nvim'
-    --use { "ellisonleao/gruvbox.nvim" }
+    use { "ellisonleao/gruvbox.nvim" }
     -- ENDTHEMES --
     --
     use 'petertriho/nvim-scrollbar'

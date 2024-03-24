@@ -46,7 +46,8 @@ lsp_zero.set_preferences({
         warn = 'W',
         hint = 'H',
         info = 'I'
-    }
+    },
+    semantic_highlighting = true,
 })
 
 lsp_zero.on_attach(function(_, bufnr)
