@@ -19,7 +19,8 @@ require("gruvbox").setup({
     contrast = "", -- can be "hard", "soft" or empty string
     palette_overrides = {},
     overrides = {
-        SignColumn = {bg = "#282828"}
+        SignColumn = {bg = "#282828"},
+        ["@lsp.type.function"] = { fg = "#fe8019" },
     },
     dim_inactive = false,
     transparent_mode = false,
