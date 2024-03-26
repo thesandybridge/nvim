@@ -8,9 +8,9 @@ return require('packer').startup(function(use)
 
     -- THEMES --
     -- use 'folke/tokyonight.nvim'
-    use { "catppuccin/nvim", as = "catppuccin" }
+    --use { "catppuccin/nvim", as = "catppuccin" }
     -- use 'navarasu/onedark.nvim'
-    use { "ellisonleao/gruvbox.nvim" }
+    --use { "ellisonleao/gruvbox.nvim" }
     use { "sainnhe/gruvbox-material" }
     -- ENDTHEMES --
     --
