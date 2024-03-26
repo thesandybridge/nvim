@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
     use { "catppuccin/nvim", as = "catppuccin" }
     -- use 'navarasu/onedark.nvim'
     use { "ellisonleao/gruvbox.nvim" }
+    use { "sainnhe/gruvbox-material" }
     -- ENDTHEMES --
     --
     use 'nvim-tree/nvim-web-devicons'

@@ -46,18 +46,6 @@ vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro"
 vim.g.netrw_cursor = 1
 vim.g.netrw_preview = 1
 
-vim.g.lightline = {
-  colorscheme = "catppuccin_mocha",
-  active = {
-    left = {
-      { "mode", "paste" },
-      { "gitbranch", "readonly", "filename", "modified" },
-    },
-  },
-  component_function = {
-    gitbranch = "FugitiveYYHead",
-  },
-}
 vim.opt.conceallevel = 1
 
 
