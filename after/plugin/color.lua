@@ -21,6 +21,7 @@ require("gruvbox").setup({
     },
     overrides = {
         SignColumn = {bg = "#282828"},
+        --["@lsp.type.function"] = { fg = "#fe8019" },
     },
     dim_inactive = false,
     transparent_mode = false,
