@@ -41,6 +41,29 @@ require("obsidian").setup({
 
 })
 
+local function open_image_in_feh()
+    local current_line = vim.fn.getline(".")
+    local match = string.match(current_line, "%((.-)%)")
+    if match then
+        local image_path = match
+        local command = "feh " .. image_path .. " &"
+        vim.notify("Executing: " .. command, vim.log.levels.INFO)
+        local result = vim.fn.system(command)
+        if vim.v.shell_error ~= 0 then
+            vim.notify("Failed to open image with feh: " .. result, vim.log.levels.ERROR)
+        end
+    else
+        vim.notify("No image path found on the current line", vim.log.levels.INFO)
+    end
+end
+
+-- Adding the Lua function to the global table to reference it in the command
+_G.open_image_in_feh = open_image_in_feh
+
+-- Creating a command "FehOpenImage"
+vim.api.nvim_create_user_command('FehOpenImage', open_image_in_feh, {})
+vim.keymap.set("n", "<leader>i", ":lua open_image_in_feh()<CR>", { noremap = true, silent = true })
+
 vim.keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<CR>", { desc = "Search Obsidian" })
 vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<CR>", { desc = "Open today's note" })
 vim.keymap.set("n", "<leader>on", "<cmd>ObsidianNew<CR>", { desc = "Create new note" })
