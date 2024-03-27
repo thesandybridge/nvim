@@ -25,6 +25,11 @@ require("obsidian").setup({
                 return require("obsidian").util.toggle_checkbox()
             end,
             opts = { buffer = true },
+        },
+        ["<leader>i"] = {
+            action = function()
+                return open_image_in_feh()
+            end,
         }
     },
     follow_url_func = function(url)
@@ -62,7 +67,7 @@ _G.open_image_in_feh = open_image_in_feh
 
 -- Creating a command "FehOpenImage"
 vim.api.nvim_create_user_command('FehOpenImage', open_image_in_feh, {})
-vim.keymap.set("n", "<leader>i", ":lua open_image_in_feh()<CR>", { noremap = true, silent = true })
+--vim.keymap.set("n", "<leader>i", ":lua open_image_in_feh()<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<CR>", { desc = "Search Obsidian" })
 vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianToday<CR>", { desc = "Open today's note" })
