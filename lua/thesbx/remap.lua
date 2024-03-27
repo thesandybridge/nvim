@@ -34,3 +34,5 @@ vim.keymap.set("n", "<leader>gf", function()
 end)
 
 vim.keymap.set("v", "<leader>sc", ":Silicon<CR>", { silent = true })
+
+vim.keymap.set("n", "<C-w>q", ":bd<CR>", { silent = true })
