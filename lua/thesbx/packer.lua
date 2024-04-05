@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
     --
     use 'nvim-tree/nvim-web-devicons'
     use 'petertriho/nvim-scrollbar'
-    --use 'github/copilot.vim'
+    use 'github/copilot.vim'
     use 'lewis6991/gitsigns.nvim'
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     use 'theHamsta/nvim-dap-virtual-text'
