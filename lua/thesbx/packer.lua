@@ -28,8 +28,8 @@ return require('packer').startup(function(use)
     use {'nvim-telescope/telescope-ui-select.nvim' }
     -- GIT --
     use "sindrets/diffview.nvim"
-    --use "thesandybridge/blame.nvim"
-    use "FabijanZulj/blame.nvim"
+    use "thesandybridge/blame.nvim"
+    --use "FabijanZulj/blame.nvim"
     use {
         'NeogitOrg/neogit',
         dependencies = {
