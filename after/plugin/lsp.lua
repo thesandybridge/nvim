@@ -93,6 +93,29 @@ local on_attach = function(client, bufnr)
     end
 end
 
+local on_php_attach = function(client, bufnr)
+    if client.name == "intelephense" then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+                local file_path = vim.api.nvim_buf_get_name(bufnr)
+                -- Check if the file is ignored
+                local handle = io.popen('git check-ignore ' .. file_path)
+                local result = handle:read("*a")
+                handle:close()
+                -- If the file is not ignored, format it
+                if result == "" then
+                    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+                    vim.cmd('silent !./vendor/bin/phpcbf --standard=WordPress ' .. file_path)
+                    vim.cmd('edit')
+                    vim.api.nvim_win_set_cursor(0, cursor_pos)
+                end
+            end
+        })
+    end
+end
+
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
@@ -252,7 +275,7 @@ require('mason-lspconfig').setup({
                     },
                 },
                 filetypes = {"php", "phtml"},
-                on_attach = on_attach
+                on_attach = on_php_attach
             })
         end,
   }
