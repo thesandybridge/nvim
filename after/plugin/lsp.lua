@@ -99,22 +99,57 @@ local on_php_attach = function(client, bufnr)
             buffer = bufnr,
             callback = function()
                 local file_path = vim.api.nvim_buf_get_name(bufnr)
-                -- Check if the file is ignored
+
+                -- Check if the file is ignored by Git
                 local handle = io.popen('git check-ignore ' .. file_path)
                 local result = handle:read("*a")
                 handle:close()
-                -- If the file is not ignored, format it
+
                 if result == "" then
-                    local cursor_pos = vim.api.nvim_win_get_cursor(0)
-                    vim.cmd('silent !./vendor/bin/phpcbf --standard=WordPress ' .. file_path)
-                    vim.cmd('edit')
-                    vim.api.nvim_win_set_cursor(0, cursor_pos)
+                    vim.notify("File is not ignored by Git.")
+
+                    -- Create a temporary file with .php extension
+                    local temp_file = vim.fn.tempname() .. '.php'
+                    vim.cmd('write! ' .. temp_file)
+
+                    -- Read the content of the temporary file before formatting
+                    local temp_handle = io.open(temp_file, "r")
+                    local original_content = temp_handle:read("*a")
+                    temp_handle:close()
+
+                    local phpcbf_cmd = 'phpcbf --standard=WordPress ' .. temp_file
+                    local phpcbf_handle = io.popen(phpcbf_cmd .. ' 2>&1')
+                    local phpcbf_result = phpcbf_handle:read("*a")
+                    phpcbf_handle:close()
+
+                    -- Verify if the temporary file content has been changed
+                    temp_handle = io.open(temp_file, "r")
+                    if temp_handle then
+                        local formatted_content = temp_handle:read("*a")
+                        temp_handle:close()
+                        os.remove(temp_file)
+
+                        local current_content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), "\n") .. "\n"
+
+                        if current_content ~= formatted_content then
+                            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(formatted_content, "\n"))
+
+                            local cursor_pos = vim.api.nvim_win_get_cursor(0)
+                            vim.cmd('write!')
+                            vim.api.nvim_win_set_cursor(0, cursor_pos)
+                        else
+                            vim.notify("No changes made by phpcbf.")
+                        end
+                    else
+                        vim.notify("Error reading the temporary file after formatting.")
+                    end
+                else
+                    vim.notify("File is ignored by Git.")
                 end
             end
         })
     end
 end
-
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
