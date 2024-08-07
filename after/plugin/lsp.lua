@@ -310,7 +310,7 @@ require('mason-lspconfig').setup({
                     },
                 },
                 filetypes = {"php", "phtml"},
-                on_attach = on_php_attach
+                on_attach = on_attach
             })
         end,
   }
