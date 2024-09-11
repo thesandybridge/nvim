@@ -4,8 +4,19 @@ local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local luasnip = require('luasnip')
 
+local snippet_path = os.getenv("HOME")
+require('luasnip.loaders.from_vscode').lazy_load({
+    paths = { snippet_path .. '/.config/nvim/snippets/' },
+    verbose = true
+})
+
 cmp.setup({
-  mapping = cmp.mapping.preset.insert({
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body) -- LuaSnip expand
+        end,
+    },
+    mapping = cmp.mapping.preset.insert({
         ['<Tab>'] = function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -24,20 +35,18 @@ cmp.setup({
                 fallback()
             end
         end,
-        -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({select = false}),
-
-        -- Ctrl+Space to trigger completion menu
         ['<C-Space>'] = cmp.mapping.complete(),
-
-        -- Navigate between snippet placeholder
         ['<C-f>'] = cmp_action.luasnip_jump_forward(),
         ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-        -- Scroll up and down in the completion documentation
         ['<C-u>'] = cmp.mapping.scroll_docs(-4),
         ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  })
+    }),
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'buffer' },
+    }
 })
 
 lsp_zero.set_preferences({
@@ -154,7 +163,7 @@ end
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
-        'tsserver',
+        'ts_ls',
         'rust_analyzer',
         'eslint',
         'intelephense',

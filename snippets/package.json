@@ -1,0 +1,14 @@
+{
+    "name": "snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": [
+                    "typescript",
+                    "typescriptreact"
+                ],
+                "path": "./leadr.json"
+            }
+        ]
+    }
+}
