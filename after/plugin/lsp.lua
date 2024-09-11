@@ -166,7 +166,6 @@ require('mason-lspconfig').setup({
     ensure_installed = {
         'ts_ls',
         'rust_analyzer',
-        'eslint',
         'intelephense',
         'lua_ls',
         'gopls',
@@ -187,6 +186,12 @@ require('mason-lspconfig').setup({
                     },
                 },
                 on_attach = on_attach
+            })
+        end,
+        ts_ls = function()
+            require('lspconfig').ts_ls.setup({
+                on_attach = function(client, _)
+                end,
             })
         end,
         rust_analyzer = function()
