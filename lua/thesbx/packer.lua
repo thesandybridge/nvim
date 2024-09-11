@@ -105,4 +105,5 @@ return require('packer').startup(function(use)
 
         }
     })
+    use 'nvimtools/none-ls.nvim'
 end)
