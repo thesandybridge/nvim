@@ -75,6 +75,8 @@ lsp_zero.on_attach(function(_, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set('n', '==', function() vim.lsp.buf.format({ async = true }) end, opts)
+    vim.keymap.set('v', '=', function() vim.lsp.buf.format({ async = true }) end, opts)
 
 end)
 
@@ -190,8 +192,6 @@ require('mason-lspconfig').setup({
         end,
         ts_ls = function()
             require('lspconfig').ts_ls.setup({
-                on_attach = function(client, _)
-                end,
             })
         end,
         rust_analyzer = function()

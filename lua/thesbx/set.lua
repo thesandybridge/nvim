@@ -13,18 +13,18 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.api.nvim_create_augroup('ProjectSpecific', { clear = true })
-vim.api.nvim_create_autocmd('BufEnter', {
-    group = 'ProjectSpecific',
-    pattern = os.getenv("HOME") .. "/Dev/work/leadr/*",
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"typescript", "typescriptreact", "javascript", "javascriptreact"},
     callback = function()
-        vim.opt_local.tabstop = 2
-        vim.opt_local.shiftwidth = 2
-        vim.opt_local.softtabstop = 2
-    end
+        vim.opt.tabstop = 2
+        vim.opt.shiftwidth = 2
+        vim.opt.softtabstop = 2
+        vim.opt.cindent = false
+        vim.opt.smartindent = false
+    end,
 })
 
 vim.opt.autoindent = true
-vim.opt.smartindent = true
 vim.opt.cindent = true
 
 vim.opt.hlsearch = false
