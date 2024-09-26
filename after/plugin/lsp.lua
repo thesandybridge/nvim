@@ -170,6 +170,7 @@ require('mason-lspconfig').setup({
         'rust_analyzer',
         'intelephense',
         'lua_ls',
+        'eslint',
         'gopls',
         'marksman',
     },
