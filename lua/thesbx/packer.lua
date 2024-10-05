@@ -111,4 +111,5 @@ return require('packer').startup(function(use)
             "nvimtools/none-ls-extras.nvim",
         },
     })
+    use "rebelot/kanagawa.nvim"
 end)
