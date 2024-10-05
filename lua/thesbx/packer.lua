@@ -7,11 +7,12 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- THEMES --
-    -- use 'folke/tokyonight.nvim'
+    --use 'folke/tokyonight.nvim'
     --use { "catppuccin/nvim", as = "catppuccin" }
-    -- use 'navarasu/onedark.nvim'
+    --use 'navarasu/onedark.nvim'
     --use { "ellisonleao/gruvbox.nvim" }
     use { "sainnhe/gruvbox-material" }
+    use "rebelot/kanagawa.nvim"
     -- ENDTHEMES --
     --
     use 'nvim-tree/nvim-web-devicons'
@@ -111,5 +112,4 @@ return require('packer').startup(function(use)
             "nvimtools/none-ls-extras.nvim",
         },
     })
-    use "rebelot/kanagawa.nvim"
 end)
