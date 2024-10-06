@@ -112,4 +112,5 @@ return require('packer').startup(function(use)
             "nvimtools/none-ls-extras.nvim",
         },
     })
+    use "folke/which-key.nvim"
 end)
