@@ -1,3 +1,5 @@
+local nvim_lsp = require('lspconfig')
+
 local lsp_zero = require("lsp-zero")
 
 local cmp = require('cmp')
@@ -36,7 +38,7 @@ cmp.setup({
                 fallback()
             end
         end,
-        ['<CR>'] = cmp.mapping.confirm({select = false}),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-f>'] = cmp_action.luasnip_jump_forward(),
         ['<C-b>'] = cmp_action.luasnip_jump_backward(),
@@ -61,10 +63,10 @@ lsp_zero.set_preferences({
 })
 
 lsp_zero.on_attach(function(_, bufnr)
-    local opts = {buffer = bufnr, remap = false}
+    local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gd", function()
-        require"telescope.builtin".lsp_definitions({jump_type="never"})
+        require "telescope.builtin".lsp_definitions({ jump_type = "never" })
     end, opts)
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
@@ -75,12 +77,9 @@ lsp_zero.on_attach(function(_, bufnr)
     vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
     vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set('n', '==', function() vim.lsp.buf.format({ async = true }) end, opts)
-    vim.keymap.set('v', '=', function() vim.lsp.buf.format({ async = true }) end, opts)
-
 end)
 
-local get_intelephense_license = function ()
+local get_intelephense_license = function()
     local f = assert(io.open(os.getenv("HOME") .. "/.config/intelephense/license.txt", "rb"))
     local content = f:read("*a")
     f:close()
@@ -105,64 +104,6 @@ local on_attach = function(client, bufnr)
     end
 end
 
-local on_php_attach = function(client, bufnr)
-    if client.name == "intelephense" then
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function()
-                local file_path = vim.api.nvim_buf_get_name(bufnr)
-
-                -- Check if the file is ignored by Git
-                local handle = io.popen('git check-ignore ' .. file_path)
-                local result = handle:read("*a")
-                handle:close()
-
-                if result == "" then
-                    vim.notify("File is not ignored by Git.")
-
-                    -- Create a temporary file with .php extension
-                    local temp_file = vim.fn.tempname() .. '.php'
-                    vim.cmd('write! ' .. temp_file)
-
-                    -- Read the content of the temporary file before formatting
-                    local temp_handle = io.open(temp_file, "r")
-                    local original_content = temp_handle:read("*a")
-                    temp_handle:close()
-
-                    local phpcbf_cmd = 'phpcbf --standard=WordPress ' .. temp_file
-                    local phpcbf_handle = io.popen(phpcbf_cmd .. ' 2>&1')
-                    local phpcbf_result = phpcbf_handle:read("*a")
-                    phpcbf_handle:close()
-
-                    -- Verify if the temporary file content has been changed
-                    temp_handle = io.open(temp_file, "r")
-                    if temp_handle then
-                        local formatted_content = temp_handle:read("*a")
-                        temp_handle:close()
-                        os.remove(temp_file)
-
-                        local current_content = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), "\n") .. "\n"
-
-                        if current_content ~= formatted_content then
-                            vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, vim.split(formatted_content, "\n"))
-
-                            local cursor_pos = vim.api.nvim_win_get_cursor(0)
-                            vim.cmd('write!')
-                            vim.api.nvim_win_set_cursor(0, cursor_pos)
-                        else
-                            vim.notify("No changes made by phpcbf.")
-                        end
-                    else
-                        vim.notify("Error reading the temporary file after formatting.")
-                    end
-                else
-                    vim.notify("File is ignored by Git.")
-                end
-            end
-        })
-    end
-end
-
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
@@ -173,12 +114,13 @@ require('mason-lspconfig').setup({
         'eslint',
         'gopls',
         'marksman',
+        'denols',
     },
     handlers = {
         lsp_zero.default_setup,
         gopls = function()
             require('lspconfig').gopls.setup({
-                cmd = {"gopls", "serve"},
+                cmd = { "gopls", "serve" },
                 settings = {
                     gopls = {
                         analyses = {
@@ -191,8 +133,17 @@ require('mason-lspconfig').setup({
                 on_attach = on_attach
             })
         end,
+        denols = function()
+            require('lspconfig').denols.setup({
+                on_attach = on_attach,
+                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")
+            })
+        end,
         ts_ls = function()
             require('lspconfig').ts_ls.setup({
+                on_attach = on_attach,
+                single_file_support = false,
+                root_dir = nvim_lsp.util.root_pattern("package.json")
             })
         end,
         rust_analyzer = function()
@@ -325,11 +276,11 @@ require('mason-lspconfig').setup({
                         },
                     },
                 },
-                filetypes = {"php", "phtml"},
+                filetypes = { "php", "phtml" },
                 on_attach = on_attach
             })
         end,
-  }
+    }
 })
 
 -- enables error output to the right of the line with the error
