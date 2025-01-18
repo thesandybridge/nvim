@@ -84,6 +84,7 @@ return require('packer').startup(function(use)
             {'williamboman/mason-lspconfig.nvim'},
 
             -- Autocompletion
+
             {'hrsh7th/nvim-cmp'},
             {'hrsh7th/cmp-buffer'},
             {'hrsh7th/cmp-path'},
@@ -106,15 +107,10 @@ return require('packer').startup(function(use)
 
         }
     })
-    use({
-        "nvimtools/none-ls.nvim",
-        requires = {
-            "nvimtools/none-ls-extras.nvim",
-        },
-    })
     use "folke/which-key.nvim"
     use({
         "kylechui/nvim-surround",
         tag = "*",
     })
+    use "folke/zen-mode.nvim"
 end)

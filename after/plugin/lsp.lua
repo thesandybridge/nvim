@@ -1,5 +1,4 @@
 local nvim_lsp = require('lspconfig')
-
 local lsp_zero = require("lsp-zero")
 
 local cmp = require('cmp')
@@ -107,14 +106,14 @@ end
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
-        'ts_ls',
         'rust_analyzer',
         'intelephense',
         'lua_ls',
-        'eslint',
         'gopls',
         'marksman',
-        'denols',
+        'eslint',
+        'ts_ls',
+        'zls',
     },
     handlers = {
         lsp_zero.default_setup,
@@ -139,11 +138,24 @@ require('mason-lspconfig').setup({
                 root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")
             })
         end,
-        ts_ls = function()
+        zls = function ()
+            require('lspconfig').zls.setup({
+            })
+        end,
+        ts_ls = function ()
             require('lspconfig').ts_ls.setup({
-                on_attach = on_attach,
-                single_file_support = false,
-                root_dir = nvim_lsp.util.root_pattern("package.json")
+                on_attach = function(client, bufnr)
+                    -- Disable tsserver diagnostics
+                    client.handlers["textDocument/publishDiagnostics"] = function() end
+                end,
+            })
+        end,
+        eslint = function()
+            require('lspconfig').eslint.setup({
+                on_attach = function(client, bufnr)
+                    client.server_capabilities.documentFormattingProvider = true
+                    client.server_capabilities.documentRangeFormattingProvider = true
+                end,
             })
         end,
         rust_analyzer = function()
