@@ -17,7 +17,7 @@ return require('packer').startup(function(use)
     --
     use 'nvim-tree/nvim-web-devicons'
     use 'petertriho/nvim-scrollbar'
-    --use 'github/copilot.vim'
+    use 'github/copilot.vim'
     use 'lewis6991/gitsigns.nvim'
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     use 'theHamsta/nvim-dap-virtual-text'
@@ -113,4 +113,22 @@ return require('packer').startup(function(use)
         tag = "*",
     })
     use "folke/zen-mode.nvim"
+
+    -- AI
+    use 'stevearc/dressing.nvim'
+    use 'nvim-lua/plenary.nvim'
+    use 'MunifTanjim/nui.nvim'
+    use 'MeanderingProgrammer/render-markdown.nvim'
+    use 'HakonHarnes/img-clip.nvim'
+    use 'zbirenbaum/copilot.lua'
+
+    use {
+        'yetone/avante.nvim',
+        branch = 'main',
+        run = 'make',
+        config = function()
+            require('avante_lib').load()
+            require('avante').setup()
+        end
+    }
 end)
