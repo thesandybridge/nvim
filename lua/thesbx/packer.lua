@@ -16,8 +16,7 @@ return require('packer').startup(function(use)
     -- ENDTHEMES --
     --
     use 'nvim-tree/nvim-web-devicons'
-    use 'petertriho/nvim-scrollbar'
-    use 'github/copilot.vim'
+    -- use 'github/copilot.vim'
     use 'lewis6991/gitsigns.nvim'
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     use 'theHamsta/nvim-dap-virtual-text'
@@ -71,10 +70,13 @@ return require('packer').startup(function(use)
     use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/vim-vsnip-integ'
     use "akinsho/toggleterm.nvim"
-    use "theprimeagen/harpoon"
+    use {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        requires = { {"nvim-lua/plenary.nvim"} }
+    }
     use "lukas-reineke/indent-blankline.nvim"
     use 'wakatime/vim-wakatime'
-    use 'wfxr/minimap.vim'
     use {
         'VonHeikemen/lsp-zero.nvim',
         requires = {
