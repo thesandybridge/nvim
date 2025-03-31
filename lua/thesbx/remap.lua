@@ -36,3 +36,24 @@ end)
 vim.keymap.set("v", "<leader>sc", ":Silicon<CR>", { silent = true })
 
 vim.keymap.set("n", "<C-w>q", ":bd<CR>", { silent = true })
+
+vim.keymap.set("v", "<leader>cl", function()
+    local buf = vim.api.nvim_get_current_buf()
+
+    -- Save and normalize the visual selection positions
+    local mode = vim.fn.mode()
+    vim.cmd('normal! "zy')  -- yank selection into z register
+    local text = vim.fn.getreg("z"):gsub("^%s+", ""):gsub("%s+$", "")
+
+    local end_pos = vim.api.nvim_win_get_cursor(0)
+    local insert_line = end_pos[1]
+
+    local log = string.format("console.log('%s:', %s);", text, text)
+
+    -- Insert console.log on the line below
+    vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { log })
+
+    -- Format the line (equalprg or built-in formatter)
+    vim.api.nvim_win_set_cursor(0, { insert_line + 1, 0 })
+    vim.cmd("normal! ==")
+end, { desc = "Console log selected text" })
