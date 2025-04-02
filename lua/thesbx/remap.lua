@@ -37,6 +37,9 @@ vim.keymap.set("v", "<leader>sc", ":Silicon<CR>", { silent = true })
 
 vim.keymap.set("n", "<C-w>q", ":bd<CR>", { silent = true })
 
+-- TOhtml copy
+vim.keymap.set("n", "<leader>th", ":let @+ = expand('%:p:r') . '.html'<CR>", { silent = true })
+
 vim.keymap.set("v", "<leader>cl", function()
     local buf = vim.api.nvim_get_current_buf()
 
