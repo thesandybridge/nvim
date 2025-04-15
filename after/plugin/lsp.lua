@@ -61,12 +61,36 @@ lsp_zero.set_preferences({
     semantic_highlighting = true,
 })
 
+
+local function filtered_definitions()
+    local telescope = require("telescope.builtin")
+
+    vim.lsp.buf_request(0, "textDocument/definition", vim.lsp.util.make_position_params(), function(_, result, ctx, _)
+        if not result or vim.tbl_isempty(result) then return end
+
+        local locations = vim.tbl_islist(result) and result or { result }
+
+        local filtered = vim.tbl_filter(function(loc)
+            local uri = loc.uri or loc.targetUri
+            return not uri:match("node_modules") and not uri:match("index.d.ts")
+        end, locations)
+
+        if vim.tbl_isempty(filtered) then
+            vim.notify("No non-node_modules definitions found", vim.log.levels.INFO)
+            return
+        end
+
+        telescope.lsp_definitions({
+            jump_type = "never",
+            locations = filtered
+        })
+    end)
+end
+
 lsp_zero.on_attach(function(_, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
-    vim.keymap.set("n", "gd", function()
-        require "telescope.builtin".lsp_definitions({ jump_type = "never" })
-    end, opts)
+    vim.keymap.set("n", "gd", filtered_definitions, opts)
     vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { noremap = true, silent = true })
     vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
