@@ -3,7 +3,7 @@ require("thesbx.remap")
 require("thesbx.toggleterm")
 require("thesbx.minimap")
 require("thesbx.find_replace")
-require("thesbx.lazy")
+--require("thesbx.lazy")
 
 local augroup = vim.api.nvim_create_augroup
 local SandyBridgeGroup = augroup('SandyBridge', {})
