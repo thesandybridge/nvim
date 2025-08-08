@@ -5,6 +5,9 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 --vim.keymap.set("n", "<leader>tt", ":new +terminal<CR>")
 vim.keymap.set("n", "<leader>tv", ":call termcmd#horiz()<CR>")
 vim.keymap.set("n", "<leader>ts", ":call termcmd#vert()<CR>")
+
+vim.keymap.set("n", "<leader>dfo", ":DiffviewOpen<CR>")
+vim.keymap.set("n", "<leader>dfc", ":DiffviewClose<CR>")
 -- jump up/down half page and center cursor
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
