@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
     --use 'folke/tokyonight.nvim'
     --use { "catppuccin/nvim", as = "catppuccin" }
     --use 'navarasu/onedark.nvim'
-    --use { "ellisonleao/gruvbox.nvim" }
+    use { "ellisonleao/gruvbox.nvim" }
     use { "sainnhe/gruvbox-material" }
     use "rebelot/kanagawa.nvim"
     -- ENDTHEMES --
@@ -109,7 +109,6 @@ return require('packer').startup(function(use)
 
         }
     })
-    use "folke/which-key.nvim"
     use({
         "kylechui/nvim-surround",
         tag = "*",
