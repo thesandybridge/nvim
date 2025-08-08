@@ -36,7 +36,7 @@ vim.keymap.set("n", "<leader>gf", function()
     return require("obsidian").util.gf_passthrough()
 end)
 
-vim.keymap.set("n", "<C-w>q", ":bd<CR>", { silent = true })
+vim.keymap.set("n", "<C-w>q", ":q<CR>", { silent = true })
 
 -- TOhtml copy
 vim.keymap.set("n", "<leader>th", ":let @+ = expand('%:p:r') . '.html'<CR>", { silent = true })
