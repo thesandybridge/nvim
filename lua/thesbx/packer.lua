@@ -95,7 +95,11 @@ return require('packer').startup(function(use)
             {'hrsh7th/cmp-nvim-lua'},
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
+            use({
+                "L3MON4D3/LuaSnip",
+                -- follow latest release.
+                tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+            }),
             {'rafamadriz/friendly-snippets'},
         },
         branch = 'v3.x'
@@ -114,6 +118,7 @@ return require('packer').startup(function(use)
         tag = "*",
     })
     use "folke/zen-mode.nvim"
+    use "folke/twilight.nvim"
 
     -- AI
     use 'stevearc/dressing.nvim'

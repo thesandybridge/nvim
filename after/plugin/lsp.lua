@@ -5,13 +5,6 @@ local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 local luasnip = require('luasnip')
 
-local snippet_path = os.getenv("HOME")
-
-require('luasnip.loaders.from_vscode').lazy_load()
-require('luasnip.loaders.from_vscode').lazy_load({
-    paths = { snippet_path .. '/.config/nvim/snippets/' },
-})
-
 cmp.setup({
     snippet = {
         expand = function(args)
