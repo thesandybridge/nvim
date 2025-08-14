@@ -4,7 +4,15 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<C-c>', builtin.git_commits, {})
 vim.keymap.set('n', '<C-b>', builtin.git_branches, {})
 vim.keymap.set('n', '<C-s>', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
+vim.keymap.set('n', '<leader>vh', function()
+  builtin.help_tags({
+    previewer = true,
+    layout_config = {
+      width = 0.9,
+      preview_width = 0.6, -- This makes the preview wider (60% of total width)
+    },
+  })
+end, {})
 
 require("telescope").setup {
   extensions = {
