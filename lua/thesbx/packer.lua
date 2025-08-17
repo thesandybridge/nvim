@@ -136,6 +136,7 @@ return require('packer').startup(function(use)
             require('avante').setup()
         end
     }
+    use {'kaarmu/typst.vim', ft = {'typst'}}
     use {
         'numToStr/Comment.nvim',
         config = function()
