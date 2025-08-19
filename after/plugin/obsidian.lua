@@ -2,7 +2,7 @@ require("obsidian").setup({
     workspaces = {
         {
             name = "Seabridge",
-            path = "~/Dev/Seabridge",
+            path = "~/Projects/Seabridge",
         },
     },
     daily_notes = {

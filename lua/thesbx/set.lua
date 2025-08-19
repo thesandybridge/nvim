@@ -33,7 +33,7 @@ vim.opt.incsearch = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+--vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 vim.opt.colorcolumn = "80"
 vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
