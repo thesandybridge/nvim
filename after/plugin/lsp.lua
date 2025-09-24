@@ -185,10 +185,14 @@ require('mason-lspconfig').setup({
                             importPrefix = "by_self",
                         },
                         cargo = {
-                            loadOutDirsFromCheck = true
+                            loadOutDirsFromCheck = true,
+                            allFeatures = true,
                         },
                         procMacro = {
                             enable = true
+                        },
+                        checkOnSave = {
+                            command = "clippy",
                         },
                     }
                 },
