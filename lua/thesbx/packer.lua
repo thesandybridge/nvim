@@ -121,21 +121,15 @@ return require('packer').startup(function(use)
     use "folke/twilight.nvim"
 
     -- AI
-    use 'stevearc/dressing.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'MunifTanjim/nui.nvim'
-    use 'MeanderingProgrammer/render-markdown.nvim'
-    use 'HakonHarnes/img-clip.nvim'
-    use 'zbirenbaum/copilot.lua'
-
-    use {
-        'yetone/avante.nvim',
-        branch = 'main',
-        run = 'make',
-        config = function()
-            require('avante').setup()
-        end
-    }
+    --use 'stevearc/dressing.nvim'
+    --use 'nvim-lua/plenary.nvim'
+    --use 'MunifTanjim/nui.nvim'
+    --use 'MeanderingProgrammer/render-markdown.nvim'
+    --use 'HakonHarnes/img-clip.nvim'
+    --use 'zbirenbaum/copilot.lua'
+    -- LINTING
+    use 'mfussenegger/nvim-lint'
+    --use 'nvimtools/none-ls.nvim'
     use {'kaarmu/typst.vim', ft = {'typst'}}
     use {
         'numToStr/Comment.nvim',
