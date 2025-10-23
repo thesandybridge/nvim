@@ -28,9 +28,15 @@ return require('packer').startup(function(use)
     use {'nvim-telescope/telescope-ui-select.nvim' }
     use {
         'kawre/leetcode.nvim',
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "MunifTanjim/nui.nvim",
+        run = ':TSUpdate html', -- if you have nvim-treesitter installed
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'MunifTanjim/nui.nvim',
+            -- You need ONE of these pickers:
+            'nvim-telescope/telescope.nvim', -- or
+            -- 'ibhagwan/fzf-lua', -- or
+            -- 'echasnovski/mini.pick', -- or
+            -- 'folke/snacks.nvim'
         },
     }
     -- GIT --
