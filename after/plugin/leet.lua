@@ -3,7 +3,7 @@ require('leetcode').setup({
     arg = "leetcode.nvim",
 
     ---@type lc.lang
-    lang = "cpp",
+    lang = "typescript",
 
     cn = { -- leetcode.cn
         enabled = false, ---@type boolean
@@ -90,7 +90,34 @@ require('leetcode').setup({
     },
 
     ---@type lc.highlights
-    theme = {},
+    theme = {
+        ['alt'] = {
+            bg = '#282828', -- gruvbox dark0
+        },
+        ['normal'] = {
+            fg = '#ebdbb2', -- gruvbox light1
+            bg = '#282828', -- gruvbox dark0
+        },
+        ['description'] = {
+            bg = '#282828', -- gruvbox dark0
+            fg = '#ebdbb2', -- gruvbox light1
+        },
+        ['title'] = {
+            fg = '#fabd2f', -- gruvbox yellow
+            bold = true,
+        },
+        ['code'] = {
+            bg = '#3c3836', -- gruvbox dark1
+            fg = '#a89984', -- gruvbox gray
+        },
+        ['menu'] = {
+            bg = '#282828', -- gruvbox dark0
+            fg = '#ebdbb2', -- gruvbox light1
+        },
+        ['stats'] = {
+            fg = '#83a598', -- gruvbox blue
+        },
+    },
 
     ---@type boolean
     image_support = false,
