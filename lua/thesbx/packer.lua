@@ -26,6 +26,13 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {'nvim-telescope/telescope-ui-select.nvim' }
+    use {
+        'kawre/leetcode.nvim',
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+        },
+    }
     -- GIT --
     use "sindrets/diffview.nvim"
     --use "thesandybridge/blame.nvim"
