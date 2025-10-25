@@ -89,7 +89,7 @@ return require('packer').startup(function(use)
         requires = { {"nvim-lua/plenary.nvim"} }
     }
     use "lukas-reineke/indent-blankline.nvim"
-    use 'wakatime/vim-wakatime'
+    --use 'wakatime/vim-wakatime'
     use {
         'VonHeikemen/lsp-zero.nvim',
         requires = {
