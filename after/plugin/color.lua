@@ -1,10 +1,4 @@
-vim.g.gruvbox_material_background = 'hard'
-vim.g.gruvbox_material_enable_bold = 1
-vim.g.gurvbox_material_better_performance = 1
-vim.g.gruvbox_material_dim_inactive_windows = 1
-vim.cmd("colorscheme gruvbox-material")
+-- Theme is now managed by lua/plugins/theme.lua
+-- This file is kept for colorizer setup only
 
-
---vim.cmd("colorscheme kanagawa-dragon")
---vim.cmd("colorscheme kanagawa-wave")
 require'colorizer'.setup()
