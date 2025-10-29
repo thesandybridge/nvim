@@ -18,14 +18,28 @@ return {
       'MunifTanjim/nui.nvim',
       'nvim-telescope/telescope.nvim',
     },
-    opts = {},
+    config = function()
+      require("leetcode").setup()
+    end,
   },
   {
     "epwalsh/obsidian.nvim",
-    event = {
-      "BufReadPre " .. vim.fn.expand("~") .. "/obsidian/**.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/obsidian/**.md",
-    },
+    cmd = { "ObsidianOpen", "ObsidianNew", "ObsidianSearch" },
+    ft = "markdown",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local obsidian_path = vim.fn.expand("~/obsidian")
+      -- Only setup if obsidian directory exists
+      if vim.fn.isdirectory(obsidian_path) == 1 then
+        require("obsidian").setup({
+          workspaces = {
+            {
+              name = "personal",
+              path = obsidian_path,
+            },
+          },
+        })
+      end
+    end,
   },
 }

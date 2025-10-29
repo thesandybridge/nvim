@@ -16,17 +16,23 @@ return {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
     },
-    opts = {},
+    config = function()
+      require("dapui").setup()
+    end,
   },
   {
     'theHamsta/nvim-dap-virtual-text',
     dependencies = { "mfussenegger/nvim-dap" },
-    opts = {},
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
   },
   {
     'leoluz/nvim-dap-go',
     ft = "go",
     dependencies = { "mfussenegger/nvim-dap" },
-    opts = {},
+    config = function()
+      require('dap-go').setup()
+    end,
   },
 }
