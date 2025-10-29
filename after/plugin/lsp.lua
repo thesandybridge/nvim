@@ -80,7 +80,10 @@ local function filtered_definitions()
     end)
 end
 
-lsp_zero.on_attach(function(_, bufnr)
+lsp_zero.on_attach(function(client, bufnr)
+    -- Disable semantic tokens (they override syntax highlighting)
+    client.server_capabilities.semanticTokensProvider = nil
+
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gd", filtered_definitions, opts)
@@ -318,56 +321,60 @@ require('mason-lspconfig').setup({
 
 
 
--- Keep default args
-require('lint').linters.eslint_d.args = {
-    '--format', 'json',
-    '--stdin',
-    '--stdin-filename', function() return vim.api.nvim_buf_get_name(0) end,
-}
+-- Only setup linting if eslint_d is available
+if vim.fn.executable('eslint_d') == 1 then
+    -- Keep default args
+    require('lint').linters.eslint_d.args = {
+        '--format', 'json',
+        '--stdin',
+        '--stdin-filename', function() return vim.api.nvim_buf_get_name(0) end,
+    }
 
--- Override parser to handle garbage output
-require('lint').linters.eslint_d.parser = function(output, bufnr)
-    local lines = vim.split(output, '\n')
-    local json_line = nil
+    -- Override parser to handle garbage output
+    require('lint').linters.eslint_d.parser = function(output, bufnr)
+        local lines = vim.split(output, '\n')
+        local json_line = nil
 
-    for _, line in ipairs(lines) do
-        if line:match('^%[') then
-            json_line = line
-            break
+        for _, line in ipairs(lines) do
+            if line:match('^%[') then
+                json_line = line
+                break
+            end
         end
+
+        if not json_line then return {} end
+
+        local ok, result = pcall(vim.json.decode, json_line)
+        if not ok or not result or not result[1] then return {} end
+
+        local diagnostics = {}
+        for _, msg in ipairs(result[1].messages or {}) do
+            table.insert(diagnostics, {
+                lnum = msg.line - 1,
+                col = msg.column - 1,
+                message = msg.message,
+                severity = msg.severity == 2 and vim.diagnostic.severity.ERROR or vim.diagnostic.severity.WARN,
+                source = 'eslint_d'
+            })
+        end
+
+        return diagnostics
     end
 
-    if not json_line then return {} end
+    require('lint').linters_by_ft = {
+        typescript = {'eslint_d'},
+        javascript = {'eslint_d'},
+        typescriptreact = {'eslint_d'},
+        javascriptreact = {'eslint_d'},
+    }
 
-    local ok, result = pcall(vim.json.decode, json_line)
-    if not ok or not result or not result[1] then return {} end
-
-    local diagnostics = {}
-    for _, msg in ipairs(result[1].messages or {}) do
-        table.insert(diagnostics, {
-            lnum = msg.line - 1,
-            col = msg.column - 1,
-            message = msg.message,
-            severity = msg.severity == 2 and vim.diagnostic.severity.ERROR or vim.diagnostic.severity.WARN,
-            source = 'eslint_d'
-        })
-    end
-
-    return diagnostics
+    -- Auto-lint on events
+    vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        callback = function()
+            require("lint").try_lint()
+        end,
+    })
 end
-
-require('lint').linters_by_ft = {
-    typescript = {'eslint_d'},
-    javascript = {'eslint_d'},
-    typescriptreact = {'eslint_d'},
-    javascriptreact = {'eslint_d'},
-}
--- Auto-lint on events
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-    callback = function()
-        require("lint").try_lint()
-    end,
-})
 
 
 -- enables error output to the right of the line with the error
