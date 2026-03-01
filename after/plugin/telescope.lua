@@ -4,6 +4,11 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<C-c>', builtin.git_commits, {})
 vim.keymap.set('n', '<C-b>', builtin.git_branches, {})
 vim.keymap.set('n', '<C-s>', builtin.live_grep, {})
+vim.keymap.set('n', '<C-g>', builtin.grep_string, {})  -- grep word under cursor
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})  -- fuzzy search open buffers
+vim.keymap.set('n', '<leader>fr', builtin.oldfiles, {}) -- recently opened files
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, {}) -- LSP diagnostics
+vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, {}) -- symbols in file
 vim.keymap.set('n', '<leader>vh', function()
   builtin.help_tags({
     previewer = true,
@@ -15,27 +20,41 @@ vim.keymap.set('n', '<leader>vh', function()
 end, {})
 
 require("telescope").setup {
-  extensions = {
-    ["ui-select"] = {
-      require("telescope.themes").get_dropdown {
-        -- even more opts
-      }
+    defaults = {
+        find_command = { 'fd', '--type', 'f', '--hidden', '--exclude', '.git' },
+        vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--hidden',
+            '--glob', '!.git'
+        }
+    },
+    extensions = {
+        ["ui-select"] = {
+            require("telescope.themes").get_dropdown {
+                -- even more opts
+            }
 
-      -- pseudo code / specification for writing custom displays, like the one
-      -- for "codeactions"
-      -- specific_opts = {
-      --   [kind] = {
-      --     make_indexed = function(items) -> indexed_items, width,
-      --     make_displayer = function(widths) -> displayer
-      --     make_display = function(displayer) -> function(e)
-      --     make_ordinal = function(e) -> string
-      --   },
-      --   -- for example to disable the custom builtin "codeactions" display
-      --      do the following
-      --   codeactions = false,
-      -- }
+            -- pseudo code / specification for writing custom displays, like the one
+            -- for "codeactions"
+            -- specific_opts = {
+            --   [kind] = {
+            --     make_indexed = function(items) -> indexed_items, width,
+            --     make_displayer = function(widths) -> displayer
+            --     make_display = function(displayer) -> function(e)
+            --     make_ordinal = function(e) -> string
+            --   },
+            --   -- for example to disable the custom builtin "codeactions" display
+            --      do the following
+            --   codeactions = false,
+            -- }
+        }
     }
-  }
 }
 
 require("telescope").load_extension("ui-select")

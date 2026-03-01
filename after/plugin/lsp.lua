@@ -162,11 +162,19 @@ require('mason-lspconfig').setup({
             require('lspconfig').zls.setup({
             })
         end,
-        ts_ls = function ()
+        ts_ls = function()
             require('lspconfig').ts_ls.setup({
                 on_attach = function(client, bufnr)
-                    -- Disable tsserver diagnostics
-                    client.handlers["textDocument/publishDiagnostics"] = function() end
+                    local lint_cfg = require('lint').linters_by_ft[vim.bo[bufnr].filetype]
+                    if lint_cfg and vim.tbl_contains(lint_cfg, 'eslint_d') then
+                        local root = vim.fs.find({ '.eslintrc', '.eslintrc.json', '.eslintrc.js', 'eslint.config.js', 'eslint.config.mjs' }, {
+                            upward = true,
+                            path = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)),
+                        })[1]
+                        if root then
+                            client.handlers["textDocument/publishDiagnostics"] = function() end
+                        end
+                    end
                 end,
             })
         end,
@@ -349,13 +357,15 @@ if vim.fn.executable('eslint_d') == 1 then
 
         local diagnostics = {}
         for _, msg in ipairs(result[1].messages or {}) do
-            table.insert(diagnostics, {
-                lnum = msg.line - 1,
-                col = msg.column - 1,
-                message = msg.message,
-                severity = msg.severity == 2 and vim.diagnostic.severity.ERROR or vim.diagnostic.severity.WARN,
-                source = 'eslint_d'
-            })
+            if msg.line then
+                table.insert(diagnostics, {
+                    lnum = msg.line - 1,
+                    col = (msg.column or 1) - 1,
+                    message = msg.message,
+                    severity = msg.severity == 2 and vim.diagnostic.severity.ERROR or vim.diagnostic.severity.WARN,
+                    source = 'eslint_d'
+                })
+            end
         end
 
         return diagnostics
