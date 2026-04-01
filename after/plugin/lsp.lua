@@ -329,32 +329,32 @@ require('mason-lspconfig').setup({
 
 
 
--- Only setup linting if eslint_d is available
+-- Linter setup
+local js_linters = {}
+
+if vim.fn.executable('oxlint') == 1 then
+    table.insert(js_linters, 'oxlint')
+end
+
 if vim.fn.executable('eslint_d') == 1 then
-    -- Keep default args
-    require('lint').linters.eslint_d.args = {
+    local eslint_d = require('lint').linters.eslint_d
+    eslint_d.args = {
         '--format', 'json',
         '--stdin',
         '--stdin-filename', function() return vim.api.nvim_buf_get_name(0) end,
     }
-
-    -- Override parser to handle garbage output
-    require('lint').linters.eslint_d.parser = function(output, bufnr)
+    eslint_d.parser = function(output, bufnr)
         local lines = vim.split(output, '\n')
         local json_line = nil
-
         for _, line in ipairs(lines) do
             if line:match('^%[') then
                 json_line = line
                 break
             end
         end
-
         if not json_line then return {} end
-
         local ok, result = pcall(vim.json.decode, json_line)
         if not ok or not result or not result[1] then return {} end
-
         local diagnostics = {}
         for _, msg in ipairs(result[1].messages or {}) do
             if msg.line then
@@ -367,18 +367,25 @@ if vim.fn.executable('eslint_d') == 1 then
                 })
             end
         end
-
         return diagnostics
     end
+    eslint_d.condition = function(ctx)
+        return vim.fs.find({
+            '.eslintrc', '.eslintrc.json', '.eslintrc.js',
+            'eslint.config.js', 'eslint.config.mjs',
+        }, { path = ctx.filename, upward = true })[1] ~= nil
+    end
+    table.insert(js_linters, 'eslint_d')
+end
 
+if #js_linters > 0 then
     require('lint').linters_by_ft = {
-        typescript = {'eslint_d'},
-        javascript = {'eslint_d'},
-        typescriptreact = {'eslint_d'},
-        javascriptreact = {'eslint_d'},
+        typescript = js_linters,
+        javascript = js_linters,
+        typescriptreact = js_linters,
+        javascriptreact = js_linters,
     }
 
-    -- Auto-lint on events
     vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
         callback = function()
             require("lint").try_lint()
@@ -386,8 +393,6 @@ if vim.fn.executable('eslint_d') == 1 then
     })
 end
 
-
--- enables error output to the right of the line with the error
 vim.diagnostic.config({
-    virtual_text = true
+    virtual_text = true,
 })
