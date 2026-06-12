@@ -1,49 +1,51 @@
--- Custom keymaps
--- open teriminal split window
---vim.keymap.set("n", "<leader>tt", ":new +terminal<CR>")
-vim.keymap.set("n", "<leader>tv", ":call termcmd#horiz()<CR>")
-vim.keymap.set("n", "<leader>ts", ":call termcmd#vert()<CR>")
+local map = vim.keymap.set
 
-vim.keymap.set("n", "<leader>dfo", ":DiffviewOpen<CR>")
-vim.keymap.set("n", "<leader>dfc", ":DiffviewClose<CR>")
+map("n", "<leader>tv", ":call termcmd#horiz()<CR>", { desc = "Terminal horizontal split" })
+map("n", "<leader>ts", ":call termcmd#vert()<CR>", { desc = "Terminal vertical split" })
+
+map("n", "<leader>dfo", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
+map("n", "<leader>dfc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
+
 -- jump up/down half page and center cursor
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+map("n", "<C-d>", "<C-d>zz", { desc = "Half page down" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Half page up" })
+map("n", "n", "nzzzv", { desc = "Next search result" })
+map("n", "N", "Nzzzv", { desc = "Previous search result" })
+
 -- prevent Q mistype
-vim.keymap.set("n", "Q", "<nop>")
+map("n", "Q", "<nop>", { desc = "Disable Ex mode" })
+
 -- not sure, found this one on Primes .dotfiles
-vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({ "n", "v" }, "<leader>x", [["_d]])
+map("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
+map({ "n", "v" }, "<leader>x", [["_d]], { desc = "Delete without yanking" })
+
 -- enables "+ register for copying to clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to clipboard" })
+map("n", "<leader>Y", [["+Y]], { desc = "Yank line to clipboard" })
 
-vim.keymap.set("n", "<C-t>", ":tabnext<CR>")
+map("n", "<C-t>", "<cmd>tabnext<CR>", { desc = "Next tab" })
 
-vim.keymap.set("n", "<leader><leader>", function()
+map("n", "<leader><leader>", function()
   vim.cmd("so")
-end)
+end, { desc = "Source current file" })
 
-vim.keymap.set("n", "<leader>ch", function()
+map("n", "<leader>ch", function()
   return require("obsidian").util.toggle_checkbox()
-end)
+end, { desc = "Toggle Obsidian checkbox" })
 
-vim.keymap.set("n", "<leader>gf", function()
+map("n", "<leader>gf", function()
   return require("obsidian").util.gf_passthrough()
-end)
+end, { desc = "Obsidian follow link" })
 
-vim.keymap.set("n", "<C-w>q", ":q<CR>", { silent = true })
+map("n", "<C-w>q", "<cmd>q<CR>", { silent = true, desc = "Close window" })
 
 -- TOhtml copy
-vim.keymap.set("n", "<leader>th", ":let @+ = expand('%:p:r') . '.html'<CR>", { silent = true })
+map("n", "<leader>th", ":let @+ = expand('%:p:r') . '.html'<CR>", { silent = true, desc = "Copy HTML path" })
 
-vim.keymap.set("v", "<leader>cl", function()
+map("v", "<leader>cl", function()
   local buf = vim.api.nvim_get_current_buf()
 
   -- Save and normalize the visual selection positions
-  local mode = vim.fn.mode()
   vim.cmd('normal! "zy') -- yank selection into z register
   local text = vim.fn.getreg("z"):gsub("^%s+", ""):gsub("%s+$", "")
 
