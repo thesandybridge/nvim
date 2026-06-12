@@ -29,6 +29,10 @@ map("n", "<leader><leader>", function()
   vim.cmd("so")
 end, { desc = "Source current file" })
 
+map("n", "<leader>xo", function()
+  require("thesbx.external_open").open_current_buffer()
+end, { desc = "Open file externally" })
+
 map("n", "<leader>ch", function()
   return require("obsidian").util.toggle_checkbox()
 end, { desc = "Toggle Obsidian checkbox" })

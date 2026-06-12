@@ -23,6 +23,18 @@ return {
       keymaps = {
         ["<CR>"] = "actions.select",
         ["l"] = "actions.select",
+        ["o"] = {
+          callback = function()
+            local oil = require("oil")
+            local entry = oil.get_cursor_entry()
+            local dir = oil.get_current_dir()
+
+            if entry and dir then
+              require("thesbx.external_open").open(dir .. entry.name)
+            end
+          end,
+          desc = "Open externally",
+        },
         ["h"] = "actions.parent",
         ["q"] = "actions.close",
         ["r"] = "actions.refresh",
