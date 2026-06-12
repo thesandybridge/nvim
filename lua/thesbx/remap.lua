@@ -1,6 +1,4 @@
 -- Custom keymaps
--- exit to netrw
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 -- open teriminal split window
 --vim.keymap.set("n", "<leader>tt", ":new +terminal<CR>")
 vim.keymap.set("n", "<leader>tv", ":call termcmd#horiz()<CR>")

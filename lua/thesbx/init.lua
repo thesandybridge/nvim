@@ -39,17 +39,6 @@ autocmd({ "BufRead", "BufNewFile" }, {
     command = "set filetype=html",
 })
 
-local netrw_group = augroup('NetrwCursorLine', {})
-
-autocmd("FileType", {
-    group = netrw_group,
-    pattern = { "netrw", "netrwTree" },
-    callback = function()
-        vim.opt_local.cursorline = true
-    end,
-})
-
-
 autocmd("FileType", {
     pattern = "markdown",
     callback = function()

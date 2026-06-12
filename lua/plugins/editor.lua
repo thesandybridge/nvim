@@ -1,6 +1,57 @@
 -- Editor enhancement plugins
 return {
   {
+    "stevearc/oil.nvim",
+    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+      { "<leader>pv", "<cmd>Oil<cr>", desc = "Open file browser" },
+    },
+    opts = {
+      default_file_explorer = true,
+      columns = {
+        "permissions",
+        "size",
+        "mtime",
+        "icon",
+      },
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = false,
+      watch_for_changes = true,
+      constrain_cursor = "name",
+      keymaps = {
+        ["<CR>"] = "actions.select",
+        ["l"] = "actions.select",
+        ["h"] = "actions.parent",
+        ["q"] = "actions.close",
+        ["r"] = "actions.refresh",
+        ["g."] = "actions.toggle_hidden",
+        ["gs"] = "actions.change_sort",
+        ["<C-p>"] = "actions.preview",
+        ["<C-s>"] = false,
+        ["<C-h>"] = false,
+        ["<C-t>"] = false,
+      },
+      view_options = {
+        show_hidden = true,
+        natural_order = true,
+        case_insensitive = true,
+        sort = {
+          { "type", "asc" },
+          { "name", "asc" },
+        },
+      },
+      win_options = {
+        wrap = false,
+        signcolumn = "no",
+        foldcolumn = "0",
+        list = false,
+        conceallevel = 3,
+      },
+    },
+  },
+  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
