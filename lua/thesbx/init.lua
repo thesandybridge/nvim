@@ -9,7 +9,6 @@ require("thesbx.lazy")
 
 -- Load other configs
 require("thesbx.toggleterm")
-require("thesbx.minimap")
 require("thesbx.find_replace")
 
 local augroup = vim.api.nvim_create_augroup
