@@ -90,15 +90,27 @@ return {
   {
     "FabijanZulj/blame.nvim",
     cmd = "BlameToggle",
+    opts = {
+      colors = { "#83a598", "#fe8019", "#fabd2f", "#8ec07c", "#fb4934", "#ebdbb2" },
+    },
   },
   {
     'NeogitOrg/neogit',
     cmd = "Neogit",
+    keys = {
+      { "<leader>gs", "<cmd>Neogit<cr>", desc = "Neogit" },
+      { "gh", "<cmd>diffget //2<cr>", desc = "Diffget left" },
+      { "gl", "<cmd>diffget //3<cr>", desc = "Diffget right" },
+    },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
       "sindrets/diffview.nvim",
     },
-    opts = {},
+    opts = {
+      integrations = {
+        diffview = true,
+      },
+    },
   },
 }

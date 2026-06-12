@@ -58,13 +58,13 @@ return {
       }
     end,
   },
-  {
-    'norcalli/nvim-colorizer.lua',
+{
+    'catgoose/nvim-colorizer.lua',
     lazy = false,
     config = function()
-      require'colorizer'.setup()
+        require'colorizer'.setup()
     end,
-  },
+},
   {
     "mvllow/modes.nvim",
     event = { "BufReadPost", "BufNewFile" },
@@ -74,7 +74,11 @@ return {
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
     keys = {
-      { "<leader>xx", desc = "Trouble" },
+      { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "Trouble" },
+      { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Trouble quickfix" },
+    },
+    opts = {
+      icons = false,
     },
   },
 }

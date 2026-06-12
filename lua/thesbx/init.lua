@@ -1,3 +1,5 @@
+vim.cmd("filetype plugin indent on")
+
 -- Load settings first (includes mapleader)
 require("thesbx.set")
 require("thesbx.remap")
@@ -33,17 +35,20 @@ autocmd({"BufWritePre"}, {
     command = [[%s/\s\+$//e]],
 })
 
-vim.api.nvim_exec([[
-    autocmd BufRead,BufNewFile *.tera set filetype=html
-]], false)
+autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = "*.tera",
+    command = "set filetype=html",
+})
 
-vim.api.nvim_exec([[
-  augroup NetrwCursorLine
-    autocmd!
-    autocmd FileType netrw,netrwTree setlocal cursorline
-    autocmd FileType netrw,netrwTree autocmd CursorMoved <buffer> setlocal cursorline
-  augroup END
-]], false)
+local netrw_group = augroup('NetrwCursorLine', {})
+
+autocmd("FileType", {
+    group = netrw_group,
+    pattern = { "netrw", "netrwTree" },
+    callback = function()
+        vim.opt_local.cursorline = true
+    end,
+})
 
 
 autocmd("FileType", {
@@ -52,7 +57,3 @@ autocmd("FileType", {
         vim.opt_local.textwidth = 80
     end,
 })
---vim.api.nvim_command('autocmd BufNewFile,BufRead *.php setlocal syntax=php')
---
-
-vim.cmd('filetype indent on')

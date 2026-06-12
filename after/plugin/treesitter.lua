@@ -1,11 +1,7 @@
--- Only run if treesitter is loaded
-local ok, nvim_treesitter = pcall(require, 'nvim-treesitter.configs')
-if not ok then
-    return
-end
+local ok, ts = pcall(require, 'nvim-treesitter')
+if not ok then return end
 
-nvim_treesitter.setup {
-    -- A list of parser names, or "all"
+ts.setup {
     ensure_installed = {
         "vimdoc",
         "javascript",
@@ -15,29 +11,14 @@ nvim_treesitter.setup {
         "rust",
         "php",
         "markdown",
-        "markdown_inline"
+        "markdown_inline",
     },
-
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = true,
-
-    -- Automatically install missing parsers when entering buffer
     auto_install = true,
-
-    indent = {
-        enable = true,
-    },
-
-    highlight = {
-        enable = true,
-        -- Disable vim regex highlighting to prevent conflicts with treesitter
-        -- and improve performance
-        additional_vim_regex_highlighting = false,
-    },
 }
 
-local ok_statusline, treesitter = pcall(require, "nvim-treesitter")
-if ok_statusline then
-    treesitter.statusline()
-end
-
+-- Highlighting, folds, and indentation are now wired up per-filetype
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+        pcall(vim.treesitter.start)
+    end,
+})
