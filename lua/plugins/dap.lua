@@ -1,4 +1,22 @@
--- Debug Adapter Protocol (DAP) plugins
+local function dapui_is_open()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype:match("^dapui_") then
+      return true
+    end
+  end
+  return false
+end
+
+local function toggle_dapui()
+  local dapui = require("dapui")
+  if dapui_is_open() then
+    dapui.close()
+  else
+    dapui.open({ reset = true })
+  end
+end
+
 return {
   {
     "mfussenegger/nvim-dap",
@@ -45,6 +63,16 @@ return {
         end,
         desc = "DAP REPL",
       },
+      {
+        "<leader>dq",
+        function()
+          local dap = require("dap")
+          require("dapui").close()
+          dap.repl.close()
+          dap.terminate({ all = true, hierarchy = true })
+        end,
+        desc = "DAP quit",
+      },
     },
   },
   {
@@ -53,15 +81,14 @@ return {
     keys = {
       {
         "<leader>du",
-        function()
-          require("dapui").open()
-        end,
-        desc = "DAP UI open",
+        toggle_dapui,
+        desc = "DAP UI toggle",
       },
       {
         "<leader>dU",
         function()
           require("dapui").close()
+          require("dap").repl.close()
         end,
         desc = "DAP UI close",
       },
@@ -74,7 +101,15 @@ return {
       local dap = require("dap")
       local dapui = require("dapui")
 
-      dapui.setup()
+      dapui.setup({
+        floating = {
+          border = "rounded",
+          mappings = {
+            close = { "q", "<Esc>" },
+          },
+        },
+      })
+
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end

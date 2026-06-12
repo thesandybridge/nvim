@@ -66,6 +66,8 @@ return {
     cmd = "Trouble",
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble diagnostics" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer diagnostics" },
+      { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble loclist" },
       { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble quickfix" },
     },
     opts = {},
