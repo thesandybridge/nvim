@@ -20,16 +20,16 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
-vim.api.nvim_create_augroup('ProjectSpecific', { clear = true })
+vim.api.nvim_create_augroup("ProjectSpecific", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"typescript", "typescriptreact", "javascript", "javascriptreact"},
-    callback = function()
-        vim.opt.tabstop = 2
-        vim.opt.shiftwidth = 2
-        vim.opt.softtabstop = 2
-        vim.opt.cindent = false
-        vim.opt.smartindent = false
-    end,
+  pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  callback = function()
+    vim.opt.tabstop = 2
+    vim.opt.shiftwidth = 2
+    vim.opt.softtabstop = 2
+    vim.opt.cindent = false
+    vim.opt.smartindent = false
+  end,
 })
 
 vim.opt.autoindent = true
@@ -44,8 +44,8 @@ vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 vim.opt.colorcolumn = "80"
-vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })
-vim.opt.listchars = 'tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•'
+vim.api.nvim_create_autocmd("Filetype", { pattern = "rust", command = "set colorcolumn=100" })
+vim.opt.listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
 vim.opt.cmdheight = 1
 
 vim.opt.smartindent = true
@@ -60,11 +60,11 @@ vim.g.mapleader = " "
 vim.opt.conceallevel = 1
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt_local.spell = true
-        vim.opt_local.spelllang = "en_us"
-    end
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.spell = true
+    vim.opt_local.spelllang = "en_us"
+  end,
 })
 
 vim.opt.laststatus = 3

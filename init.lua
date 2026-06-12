@@ -1,3 +1,1 @@
-require('thesbx')
-require("snippets").setup()
-
+require("config.lazy")

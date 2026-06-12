@@ -15,23 +15,23 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "Q", "<nop>")
 -- not sure, found this one on Primes .dotfiles
 vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({"n", "v"}, "<leader>x", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>x", [["_d]])
 -- enables "+ register for copying to clipboard
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set("n", "<C-t>", ":tabnext<CR>")
 
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+  vim.cmd("so")
 end)
 
 vim.keymap.set("n", "<leader>ch", function()
-    return require("obsidian").util.toggle_checkbox()
+  return require("obsidian").util.toggle_checkbox()
 end)
 
 vim.keymap.set("n", "<leader>gf", function()
-    return require("obsidian").util.gf_passthrough()
+  return require("obsidian").util.gf_passthrough()
 end)
 
 vim.keymap.set("n", "<C-w>q", ":q<CR>", { silent = true })
@@ -40,22 +40,22 @@ vim.keymap.set("n", "<C-w>q", ":q<CR>", { silent = true })
 vim.keymap.set("n", "<leader>th", ":let @+ = expand('%:p:r') . '.html'<CR>", { silent = true })
 
 vim.keymap.set("v", "<leader>cl", function()
-    local buf = vim.api.nvim_get_current_buf()
+  local buf = vim.api.nvim_get_current_buf()
 
-    -- Save and normalize the visual selection positions
-    local mode = vim.fn.mode()
-    vim.cmd('normal! "zy')  -- yank selection into z register
-    local text = vim.fn.getreg("z"):gsub("^%s+", ""):gsub("%s+$", "")
+  -- Save and normalize the visual selection positions
+  local mode = vim.fn.mode()
+  vim.cmd('normal! "zy') -- yank selection into z register
+  local text = vim.fn.getreg("z"):gsub("^%s+", ""):gsub("%s+$", "")
 
-    local end_pos = vim.api.nvim_win_get_cursor(0)
-    local insert_line = end_pos[1]
+  local end_pos = vim.api.nvim_win_get_cursor(0)
+  local insert_line = end_pos[1]
 
-    local log = string.format("console.log('%s:', %s);", text, text)
+  local log = string.format("console.log('%s:', %s);", text, text)
 
-    -- Insert console.log on the line below
-    vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { log })
+  -- Insert console.log on the line below
+  vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { log })
 
-    -- Format the line (equalprg or built-in formatter)
-    vim.api.nvim_win_set_cursor(0, { insert_line + 1, 0 })
-    vim.cmd("normal! ==")
+  -- Format the line (equalprg or built-in formatter)
+  vim.api.nvim_win_set_cursor(0, { insert_line + 1, 0 })
+  vim.cmd("normal! ==")
 end, { desc = "Console log selected text" })

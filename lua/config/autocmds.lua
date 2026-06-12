@@ -1,8 +1,41 @@
--- Autocmds are automatically loaded on the VeryLazy event
--- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
---
--- Add any additional autocmds here
--- with `vim.api.nvim_create_autocmd`
---
--- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
--- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+require("thesbx.find_replace")
+
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd("TextYankPost", {
+  group = augroup("HighlightYank", {}),
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = "IncSearch",
+      timeout = 40,
+    })
+  end,
+})
+
+autocmd("BufWritePre", {
+  group = augroup("SandyBridge", {}),
+  pattern = "*",
+  callback = function()
+    local excluded = {
+      gitcommit = true,
+      markdown = true,
+    }
+    if not excluded[vim.bo.filetype] then
+      vim.cmd([[%s/\s\+$//e]])
+    end
+  end,
+})
+
+autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.tera",
+  command = "set filetype=html",
+})
+
+autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.textwidth = 80
+  end,
+})

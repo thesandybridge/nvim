@@ -5,7 +5,7 @@ local i = ls.insert_node
 local f = ls.function_node
 
 -- Define filetypes where this snippet should be available
-local filetypes = {"javascriptreact", "typescriptreact", "javascript", "typescript"}
+local filetypes = { "javascriptreact", "typescriptreact", "javascript", "typescript" }
 
 -- Function to check if useState is already imported and add it if needed
 local function ensure_react_import()
@@ -14,8 +14,10 @@ local function ensure_react_import()
   local content = table.concat(lines, "\n")
 
   -- Check if useState is already imported
-  if content:match("import%s+{[^}]*useState[^}]*}%s+from%s+['\"]react['\"]") or
-     content:match("import%s+React,%s*{[^}]*useState[^}]*}%s+from%s+['\"]react['\"]") then
+  if
+    content:match("import%s+{[^}]*useState[^}]*}%s+from%s+['\"]react['\"]")
+    or content:match("import%s+React,%s*{[^}]*useState[^}]*}%s+from%s+['\"]react['\"]")
+  then
     -- useState is already imported
     return ""
   end
@@ -30,7 +32,7 @@ local function ensure_react_import()
         local trimmed = imports:match("^%s*(.-)%s*$")
         return "{ " .. trimmed .. ", useState }"
       end)
-      vim.api.nvim_buf_set_lines(bufnr, i-1, i, false, {new_line})
+      vim.api.nvim_buf_set_lines(bufnr, i - 1, i, false, { new_line })
       return ""
     end
 
@@ -38,13 +40,13 @@ local function ensure_react_import()
     if line:match("^import%s+React%s+from%s+['\"]react['\"]") then
       -- Change to import React, { useState } from 'react'
       local new_line = "import React, { useState } from 'react'"
-      vim.api.nvim_buf_set_lines(bufnr, i-1, i, false, {new_line})
+      vim.api.nvim_buf_set_lines(bufnr, i - 1, i, false, { new_line })
       return ""
     end
   end
 
   -- No existing React import found, add a new one at the top
-  vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, {"import { useState } from 'react';", ""})
+  vim.api.nvim_buf_set_lines(bufnr, 0, 0, false, { "import { useState } from 'react';", "" })
   return ""
 end
 
@@ -56,7 +58,7 @@ local useState_snippet = s("uss", {
   f(function(args)
     local state = args[1][1]
     return ", set" .. state:gsub("^%l", string.upper)
-  end, {1}),
+  end, { 1 }),
   t("] = useState("),
   i(2, "initialValue"),
   t(");"),
@@ -69,4 +71,3 @@ for _, filetype in ipairs(filetypes) do
     useState_snippet,
   })
 end
-

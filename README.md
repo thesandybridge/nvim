@@ -4,8 +4,8 @@ Modern Neovim configuration using Lazy.nvim with optional Omarchy theme integrat
 
 ## Features
 
-- **Plugin Manager**: Lazy.nvim with optimized lazy loading
-- **LSP**: Full LSP support via lsp-zero with Mason
+- **Plugin Manager**: Lazy.nvim with LazyVim defaults
+- **LSP**: Native nvim-lspconfig setup with Mason-managed servers
 - **Treesitter**: Syntax highlighting and code understanding
 - **Git Integration**: Gitsigns, Neogit, Diffview, Blame
 - **Fuzzy Finding**: Telescope
@@ -19,19 +19,22 @@ Modern Neovim configuration using Lazy.nvim with optional Omarchy theme integrat
 ~/.config/nvim/
 ├── init.lua                    # Entry point
 ├── lua/
+│   ├── config/
+│   │   ├── lazy.lua           # Lazy.nvim + LazyVim bootstrap
+│   │   ├── options.lua        # Loads personal Vim options
+│   │   ├── keymaps.lua        # Loads personal keymaps
+│   │   └── autocmds.lua       # Autocmds and user commands
 │   ├── thesbx/
-│   │   ├── init.lua           # Main config loader + theme application
-│   │   ├── lazy.lua           # Lazy.nvim bootstrap
-│   │   ├── set.lua            # Vim options
-│   │   ├── remap.lua          # Keymaps
-│   │   └── ...                # Other configs
+│   │   ├── set.lua            # Personal Vim options
+│   │   ├── remap.lua          # Personal keymaps
+│   │   └── find_replace.lua   # Custom commands
 │   ├── plugins/               # Plugin specifications (lazy-loaded)
 │   │   ├── theme.lua          # Theme plugin
 │   │   ├── lsp.lua            # LSP configuration
 │   │   ├── git.lua            # Git plugins
 │   │   └── ...                # Other plugin groups
 │   └── snippets/              # Custom snippets
-└── after/plugin/              # Plugin configurations
+└── lazy-lock.json             # Locked plugin revisions
 ```
 
 ## Lazy Loading

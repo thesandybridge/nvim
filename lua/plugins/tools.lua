@@ -11,12 +11,12 @@ return {
     opts = {},
   },
   {
-    'kawre/leetcode.nvim',
+    "kawre/leetcode.nvim",
     cmd = "Leet",
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'nvim-telescope/telescope.nvim',
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-telescope/telescope.nvim",
     },
     config = function()
       require("leetcode").setup()
