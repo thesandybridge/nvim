@@ -14,6 +14,7 @@ return {
         { "<leader>f", group = "find" },
         { "<leader>g", group = "go/git" },
         { "<leader>h", group = "hunks" },
+        { "<leader>m", group = "mise" },
         { "<leader>p", group = "project/paste" },
         { "<leader>t", group = "toggles/tools" },
         { "<leader>v", group = "lsp" },

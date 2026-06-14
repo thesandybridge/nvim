@@ -33,6 +33,26 @@ map("n", "<leader>xo", function()
   require("thesbx.external_open").open_current_buffer()
 end, { desc = "Open file externally" })
 
+map("n", "<leader>mm", function()
+  require("thesbx.mise").select()
+end, { desc = "Mise task picker" })
+
+map("n", "<leader>md", function()
+  require("thesbx.mise").run("dev")
+end, { desc = "Mise dev" })
+
+map("n", "<leader>mt", function()
+  require("thesbx.mise").run("test")
+end, { desc = "Mise test" })
+
+map("n", "<leader>ml", function()
+  require("thesbx.mise").run("lint")
+end, { desc = "Mise lint" })
+
+map("n", "<leader>mb", function()
+  require("thesbx.mise").run("build")
+end, { desc = "Mise build" })
+
 map("n", "<leader>ch", function()
   return require("obsidian").util.toggle_checkbox()
 end, { desc = "Toggle Obsidian checkbox" })
