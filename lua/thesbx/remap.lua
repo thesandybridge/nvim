@@ -38,20 +38,24 @@ map("n", "<leader>mm", function()
 end, { desc = "Mise task picker" })
 
 map("n", "<leader>md", function()
-  require("thesbx.mise").run("dev")
-end, { desc = "Mise dev" })
+  require("thesbx.mise").run_in_role("dev", "server")
+end, { desc = "Mise dev in server pane" })
 
 map("n", "<leader>mt", function()
-  require("thesbx.mise").run("test")
-end, { desc = "Mise test" })
+  require("thesbx.mise").run_in_role("test", "tests")
+end, { desc = "Mise test in tests pane" })
 
 map("n", "<leader>ml", function()
-  require("thesbx.mise").run("lint")
-end, { desc = "Mise lint" })
+  require("thesbx.mise").run_in_role("lint", "tests")
+end, { desc = "Mise lint in tests pane" })
 
 map("n", "<leader>mb", function()
-  require("thesbx.mise").run("build")
-end, { desc = "Mise build" })
+  require("thesbx.mise").run_in_role("build", "tests")
+end, { desc = "Mise build in tests pane" })
+
+map("n", "<leader>mL", function()
+  require("thesbx.mise").run_in_role("logs", "logs")
+end, { desc = "Mise logs in logs pane" })
 
 map("n", "<leader>ch", function()
   return require("obsidian").util.toggle_checkbox()

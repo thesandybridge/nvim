@@ -48,6 +48,46 @@ local function terminal_command(root, task)
   vim.cmd("terminal cd " .. shell_quote(root) .. " && " .. command)
 end
 
+local function tmux_window_id()
+  local result = vim.system({ "tmux", "display-message", "-p", "#{window_id}" }, { text = true }):wait()
+  if result.code ~= 0 then
+    return nil
+  end
+
+  return vim.trim(result.stdout)
+end
+
+local function role_command(root, role, task)
+  local helper = vim.fn.expand("~/.config/tmux/pane-role")
+  if not vim.env.TMUX or vim.fn.executable("tmux") ~= 1 or vim.fn.executable(helper) ~= 1 then
+    terminal_command(root, task)
+    return
+  end
+
+  local window = tmux_window_id()
+  if not window or window == "" then
+    terminal_command(root, task)
+    return
+  end
+
+  local command = "cd -- " .. shell_quote(root) .. " && mise run " .. shell_quote(task)
+  local result = vim
+    .system({ helper, "send", role, command }, {
+      env = vim.tbl_extend("force", vim.fn.environ(), {
+        TMUX_TARGET_WINDOW = window,
+      }),
+      text = true,
+    })
+    :wait()
+
+  if result.code ~= 0 then
+    vim.notify(result.stderr ~= "" and result.stderr or "Failed to send task to tmux pane", vim.log.levels.ERROR)
+    return
+  end
+
+  vim.notify("Sent `mise run " .. task .. "` to " .. role .. " pane", vim.log.levels.INFO)
+end
+
 local function task_names(root)
   local result = vim.system({ "mise", "tasks", "--json" }, { cwd = root, text = true }):wait()
   if result.code ~= 0 then
@@ -76,6 +116,11 @@ end
 function M.run(task)
   local root = project_root()
   terminal_command(root, task)
+end
+
+function M.run_in_role(task, role)
+  local root = project_root()
+  role_command(root, role, task)
 end
 
 function M.select()
