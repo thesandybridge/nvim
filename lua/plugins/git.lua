@@ -114,7 +114,7 @@ return {
     "NeogitOrg/neogit",
     cmd = "Neogit",
     keys = {
-      { "<leader>gs", "<cmd>Neogit<cr>", desc = "Neogit" },
+      { "<leader>gs", "<cmd>Neogit kind=tab<cr>", desc = "Neogit" },
       { "gh", "<cmd>diffget //2<cr>", desc = "Diffget left" },
       { "gl", "<cmd>diffget //3<cr>", desc = "Diffget right" },
     },
@@ -124,8 +124,27 @@ return {
       "sindrets/diffview.nvim",
     },
     opts = {
+      kind = "tab",
+      commit_editor = {
+        kind = "tab",
+        staged_diff_split_kind = "split",
+      },
+      commit_select_view = {
+        kind = "tab",
+      },
+      commit_view = {
+        kind = "vsplit",
+      },
+      log_view = {
+        kind = "tab",
+      },
+      popup = {
+        kind = "split",
+      },
       integrations = {
         diffview = true,
+        telescope = false,
+        snacks = false,
       },
     },
   },
